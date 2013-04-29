@@ -1,5 +1,5 @@
 MSBUILD_PATH = "C:/Windows/Microsoft.NET/Framework/v4.0.30319/msbuild.exe"
-MSPEC_PATH = "lib/Machine.Specifications.0.5.12.0/tools/mspec-clr4.exe"
+MSPEC_PATH = "lib/Machine.Specifications.0.5.12/tools/mspec-clr4.exe"
 #MSTEST_PATH = "\"" + ENV['VS90COMNTOOLS'].gsub("Tools","IDE") + "mstest.exe\""
 BUILD_PATH = File.expand_path('build')
 DEPLOY_PATH = File.expand_path('deploy')
@@ -10,7 +10,7 @@ CONFIG = "Debug"
 
 task :default => [:all]
 
-task :all => [:prepare, :compile, :tests, :deploy ]
+task :all => [:prepare, :compile, :tests ]
 
 task :prepare do
 	require 'fileutils'
@@ -20,14 +20,6 @@ task :prepare do
 task :compile do
 	puts 'Compiling solution...'
 	sh "#{MSBUILD_PATH} /p:Configuration=#{CONFIG} /p:OutDir=\"#{BUILD_PATH}/\" /p:PostBuildEvent=\"\" #{SOLUTION}"
-end
-
-task :deploy do
-	puts 'Preparing deployment...'
-	mkdir DEPLOY_PATH unless File.exist?(DEPLOY_PATH)
-	cp BUILD_PATH + "/DomainEvents.dll", DEPLOY_PATH
-	cp BUILD_PATH + "/DomainEvents.Testing.dll", DEPLOY_PATH
-	cp BUILD_PATH + "/DomainEvents.StructureMap.dll", DEPLOY_PATH
 end
 
 task :tests do
@@ -54,7 +46,7 @@ task :tests do
     
     # Run the tests and give a message on failure
     # But we don't want to hear the chatter, so dump the console output to a file
-    File.new("#{REPORTS_PATH}/mspec.output.txt",'w') << `#{MSPEC_PATH} #{HTML_SWITCH} #{XML_SWITCH} #{TEST_DLL_LIST}`
+    `#{MSPEC_PATH} #{HTML_SWITCH} #{XML_SWITCH} #{TEST_DLL_LIST}`
     result = $?.to_i
     
     raise "One or more tests failed.  Please see results in #{REPORTS_PATH}\\index.html" unless result == 0

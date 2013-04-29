@@ -1,4 +1,5 @@
 using Autofac;
+using Autofac.Integration.Mvc;
 
 namespace Rainfall.Web
 {
@@ -13,6 +14,8 @@ namespace Rainfall.Web
 
         public ILifetimeScope GetConfiguredContainer()
         {
+            _containerBuilder.RegisterControllers(typeof (Bootstrapper).Assembly);
+
             //register all dependencies here, like this:
             //containerBuilder.RegisterType<SomeConcreteClass>().As<ISomeInterface>();
 

@@ -17,7 +17,7 @@ namespace Rainfall.Web.Specs
                                 {
                                     var bootstrapper = new Bootstrapper(new ContainerBuilder());
                                     _container = bootstrapper.GetConfiguredContainer();
-
+                                    
                                     _controllers = new TypeScanner.TypeScanner().GetTypesOf<Controller>().ToList();
                                 };
 
