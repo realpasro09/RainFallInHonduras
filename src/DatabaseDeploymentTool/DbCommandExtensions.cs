@@ -10,7 +10,7 @@ namespace DatabaseDeploymentTool
             var tr = new StreamReader(filename);
             var sql = tr.ReadToEnd();
             cmd.CommandText = sql;
-            cmd.ExecuteNonQuery();   
+            cmd.ExecuteNonQuery();
         }
     }
 }
