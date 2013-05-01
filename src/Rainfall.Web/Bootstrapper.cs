@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using Autofac;
 using Autofac.Integration.Mvc;
 
@@ -5,21 +8,27 @@ namespace Rainfall.Web
 {
     public class Bootstrapper
     {
-        readonly ContainerBuilder _containerBuilder;
+        readonly ContainerBuilder builder;
 
-        public Bootstrapper(ContainerBuilder containerBuilder)
+        public Bootstrapper(ContainerBuilder builder)
         {
-            _containerBuilder = containerBuilder;
+            this.builder = builder;
         }
 
-        public ILifetimeScope GetConfiguredContainer()
+        public IContainer Run()
         {
-            _containerBuilder.RegisterControllers(typeof (Bootstrapper).Assembly);
+            new List<IBootstrapperTask<ContainerBuilder>>
+                {
+                    new RegisterInjectedDependencies(),
+                    new ConfigureDatabaseIntegration(),
+                    new ConfigureAspNetMvc(),
+                    //new AutomapperConfigurationBootstrapperTask(),
+                }.ForEach(bootstrapper => bootstrapper.Task(builder));
 
-            //register all dependencies here, like this:
-            //containerBuilder.RegisterType<SomeConcreteClass>().As<ISomeInterface>();
+            var container = builder.Build();
 
-            return _containerBuilder.Build();
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+            return container;
         }
     }
 }

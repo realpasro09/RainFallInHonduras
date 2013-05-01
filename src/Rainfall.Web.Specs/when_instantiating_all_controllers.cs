@@ -15,8 +15,8 @@ namespace Rainfall.Web.Specs
 
         Establish context = () =>
                                 {
-                                    var bootstrapper = new Bootstrapper(new ContainerBuilder());
-                                    _container = bootstrapper.GetConfiguredContainer();
+                                    var containerBuilder = new ContainerBuilder();
+                                    _container = new Bootstrapper(containerBuilder).Run();
                                     
                                     _controllers = new TypeScanner.TypeScanner().GetTypesOf<Controller>().ToList();
                                 };

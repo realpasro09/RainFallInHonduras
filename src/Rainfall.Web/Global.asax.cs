@@ -29,10 +29,8 @@ namespace Rainfall.Web
             AreaRegistration.RegisterAllAreas();
 
             var containerBuilder = new ContainerBuilder();
-            var bootstrapper = new Bootstrapper(containerBuilder);
-            ILifetimeScope container = bootstrapper.GetConfiguredContainer();
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
-
+            new Bootstrapper(containerBuilder).Run();
+            
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
         }        
