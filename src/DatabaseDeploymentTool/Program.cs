@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.IO;
 using System.Threading;
 using AcklenAvenue.Data.NHibernate;
 using DomainDrivenDatabaseDeployer;
@@ -45,7 +44,7 @@ namespace DatabaseDeploymentTool
                 dd.Seed(new List<IDataSeeder>
                             {
                                 //add data seeders here.
-                                //new ScorecardSeeder(session)
+                                new SeedAlamanacDays(session)
                             });
                 tx.Commit();
             }
@@ -54,17 +53,6 @@ namespace DatabaseDeploymentTool
             Console.WriteLine("");
             Console.WriteLine("Seed data added.");
             Thread.Sleep(2000);
-        }
-    }
-
-    public static class DbCommandExtensions
-    {
-        public static void ExecuteSqlFile(this IDbCommand cmd, string filename)
-        {
-            var tr = new StreamReader(filename);
-            var sql = tr.ReadToEnd();
-            cmd.CommandText = sql;
-            cmd.ExecuteNonQuery();   
         }
     }
 }

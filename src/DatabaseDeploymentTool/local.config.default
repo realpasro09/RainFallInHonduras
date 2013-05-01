@@ -9,11 +9,8 @@
   -->
 <connectionStrings>
   <!--Development-->
-  <add name="PIIMS" connectionString="Data Source=.\SQLEXPRESS;Initial Catalog=PIIMS;integrated security=true" />
+  <add name="Rainfall" connectionString="Data Source=.\SQLEXPRESS;Initial Catalog=Rainfall;integrated security=true" />
 
-  <!--QA-->
-  <!--<add name="PIIMS" connectionString="Server=e8d75b8e-3772-461a-b24b-a13000396af8.sqlserver.sequelizer.com;Database=dbe8d75b8e3772461ab24ba13000396af8;User ID=msztfazsdriyprwc;Password=BzaQwqUhwFkqTyzDCaCSN6MAkT7XGpn7jY3AicAo7VwPWN6QqXDKkjzDUFDLs6Hh;" />-->
-
-  <!--Beta-->
-  <!--<add name="PIIMS" connectionString="Server=4ec61a9b-9897-4087-bc74-a17201033ec2.sqlserver.sequelizer.com;Database=db4ec61a9b98974087bc74a17201033ec2;User ID=enidwsguaavfrqrn;Password=N3epR3TpgFddsNDLzyasCUAbYdEZecyhgxXFYx5qVeauNmCtDmVqMxc2AdxMw3je;" />-->
+  <!--AppHarbor-->
+  <!--<add name="Rainfall" connectionString="Server=642c5f5a-0dbb-44f9-addb-a1b0018b0e03.sqlserver.sequelizer.com;Database=db642c5f5a0dbb44f9addba1b0018b0e03;User ID=lurwudlouyqwuyhy;Password=RNPr3YHdLJTsgNk5h8Fg7EkT57gsTTA6jQEbnzCKoMpnviAhVSUXyjamC5v4RqrZ;" />-->
 </connectionStrings>
