@@ -17,7 +17,8 @@ namespace Rainfall.Integration
             {
                 AutoPersistenceModel autoPersistenceModel = AutoMap.Assemblies(typeof (IEntity).Assembly)
                     .Where(t => typeof (IEntity).IsAssignableFrom(t))
-                    //.UseOverridesFromAssemblyOf<WishListItemOverride>()
+                    .UseOverridesFromAssemblyOf<AlmanacDayOverride>()
+                    .UseOverridesFromAssemblyOf<AlmanacHourlyOverride>()
                     //.IncludeBase(typeof(ProjectEventBase))
                     .Conventions.Add(DefaultCascade.All());
 

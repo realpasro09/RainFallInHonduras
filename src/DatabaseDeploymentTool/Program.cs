@@ -20,6 +20,7 @@ namespace DatabaseDeploymentTool
             ISessionFactory sessionFactory = new SessionFactoryBuilder(new MappingScheme(), databaseConfiguration)
                 .Build(cfg => { dd = new DatabaseDeployer(cfg); });
 
+            
             using (var sess = sessionFactory.OpenSession())
             {
                 using (IDbCommand cmd = sess.Connection.CreateCommand())
@@ -29,10 +30,10 @@ namespace DatabaseDeploymentTool
                     cmd.ExecuteSqlFile("dropTables.sql");
                 }
             }
-                        
+                 
             Console.WriteLine("");
             Console.WriteLine("Database dropped.");
-            Thread.Sleep(1000);
+            //Thread.Sleep(1000);
 
             dd.Create();
             Console.WriteLine("");
@@ -44,7 +45,8 @@ namespace DatabaseDeploymentTool
                 dd.Seed(new List<IDataSeeder>
                             {
                                 //add data seeders here.
-                                new SeedAlamanacDays(session)
+                                //new SeedAlamanacDays(session)
+                                new SeedCity(session)
                             });
                 tx.Commit();
             }
@@ -52,7 +54,7 @@ namespace DatabaseDeploymentTool
             sessionFactory.Close();
             Console.WriteLine("");
             Console.WriteLine("Seed data added.");
-            Thread.Sleep(2000);
+            //Thread.Sleep(2000);
         }
     }
 }
