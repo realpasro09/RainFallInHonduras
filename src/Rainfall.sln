@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rainfall.Integration", "Rai
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseDeploymentTool", "DatabaseDeploymentTool\DatabaseDeploymentTool.csproj", "{512EBF54-9F9A-47B1-9AD1-2D6A122FF050}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rainfall.WeatherFetcher", "Rainfall.WeatherFetcher\Rainfall.WeatherFetcher.csproj", "{6212F61B-26FC-49A1-A439-0AF2513FCA92}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -133,6 +135,21 @@ Global
 		{512EBF54-9F9A-47B1-9AD1-2D6A122FF050}.Release|Mixed Platforms.Build.0 = Release|x86
 		{512EBF54-9F9A-47B1-9AD1-2D6A122FF050}.Release|x86.ActiveCfg = Release|x86
 		{512EBF54-9F9A-47B1-9AD1-2D6A122FF050}.Release|x86.Build.0 = Release|x86
+		{6212F61B-26FC-49A1-A439-0AF2513FCA92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6212F61B-26FC-49A1-A439-0AF2513FCA92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6212F61B-26FC-49A1-A439-0AF2513FCA92}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{6212F61B-26FC-49A1-A439-0AF2513FCA92}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{6212F61B-26FC-49A1-A439-0AF2513FCA92}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6212F61B-26FC-49A1-A439-0AF2513FCA92}.MbwTest|Any CPU.ActiveCfg = Release|Any CPU
+		{6212F61B-26FC-49A1-A439-0AF2513FCA92}.MbwTest|Any CPU.Build.0 = Release|Any CPU
+		{6212F61B-26FC-49A1-A439-0AF2513FCA92}.MbwTest|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{6212F61B-26FC-49A1-A439-0AF2513FCA92}.MbwTest|Mixed Platforms.Build.0 = Release|Any CPU
+		{6212F61B-26FC-49A1-A439-0AF2513FCA92}.MbwTest|x86.ActiveCfg = Release|Any CPU
+		{6212F61B-26FC-49A1-A439-0AF2513FCA92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6212F61B-26FC-49A1-A439-0AF2513FCA92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6212F61B-26FC-49A1-A439-0AF2513FCA92}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{6212F61B-26FC-49A1-A439-0AF2513FCA92}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{6212F61B-26FC-49A1-A439-0AF2513FCA92}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

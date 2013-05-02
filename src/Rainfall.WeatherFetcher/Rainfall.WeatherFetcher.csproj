@@ -4,16 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7CFB3824-9EEF-46E3-810E-6CB165725510}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{6212F61B-26FC-49A1-A439-0AF2513FCA92}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Rainfall.Integration</RootNamespace>
-    <AssemblyName>Rainfall.Integration</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <RootNamespace>Rainfall.WeatherFetcher</RootNamespace>
+    <AssemblyName>Rainfall.WeatherFetcher</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -46,6 +47,9 @@
     <Reference Include="NHibernate">
       <HintPath>..\..\lib\NHibernate.3.3.3.4000\lib\Net35\NHibernate.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\..\lib\RestSharp.104.1\lib\net4\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -55,18 +59,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AlmanacDayOverride.cs" />
-    <Compile Include="AlmanacHourlyOverride.cs" />
-    <Compile Include="MappingScheme.cs" />
+    <Compile Include="JsonGeneratedClasses\Astronomy.cs" />
+    <Compile Include="JsonGeneratedClasses\CurrentCondition.cs" />
+    <Compile Include="JsonGeneratedClasses\Data.cs" />
+    <Compile Include="JsonGeneratedClasses\Hourly.cs" />
+    <Compile Include="JsonGeneratedClasses\Request.cs" />
+    <Compile Include="JsonGeneratedClasses\RootObject.cs" />
+    <Compile Include="JsonGeneratedClasses\Weather.cs" />
+    <Compile Include="JsonGeneratedClasses\WeatherDesc.cs" />
+    <Compile Include="JsonGeneratedClasses\WeatherIconUrl.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="APIClasses\WorldWeatherOnline.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+    <None Include="local.config">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Rainfall.Domain\Rainfall.Domain.csproj">
       <Project>{55829F00-1217-4408-BF6B-7FCFE98A46ED}</Project>
       <Name>Rainfall.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rainfall.Integration\Rainfall.Integration.csproj">
+      <Project>{7CFB3824-9EEF-46E3-810E-6CB165725510}</Project>
+      <Name>Rainfall.Integration</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
