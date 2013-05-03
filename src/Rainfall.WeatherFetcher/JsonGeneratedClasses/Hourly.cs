@@ -12,7 +12,7 @@ namespace Rainfall.WeatherFetcher.JsonGeneratedClasses
         public string HeatIndexC { get; set; }
         public string HeatIndexF { get; set; }
         public string Humidity { get; set; }
-        public string PrecipMm { get; set; }
+        public string precipMM { get; set; }
         public string Pressure { get; set; }
         public string TempC { get; set; }
         public string TempF { get; set; }
