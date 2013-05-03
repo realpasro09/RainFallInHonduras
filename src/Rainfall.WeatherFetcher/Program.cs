@@ -25,7 +25,7 @@ namespace Rainfall.WeatherFetcher
             ISession session = sessionFactory.OpenSession();
             var weatherData = new WorldWeatherOnline(session);
             
-            weatherData.SaveDataFromPast();
+            //weatherData.SaveDataFromPast();
             weatherData.SaveDailyData();
 
             session.Close();

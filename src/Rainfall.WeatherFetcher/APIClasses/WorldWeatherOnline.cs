@@ -32,7 +32,10 @@ namespace Rainfall.WeatherFetcher.APIClasses
                 var dateReview = _startLoggingDate;
                 while (dateReview.Date != DateTime.Now.Date)
                 {
-                    if (!_session.Query<AlmanacDay>().Where(x => x.Date.Date == dateReview.Date && x.City.Id == city.Id).Any())
+                    var query = from almanacday in _session.Query<AlmanacDay>() 
+                                    where almanacday.Date.Date == dateReview.Date.Date && almanacday.CityId == city.Id
+                                    select almanacday;
+                    if (!query.Any())
                     {
                         var weatherData = ApiCall(_basePremiumUrl, "Honduras", city.Name, "2e2rdxvat4nk5vvawt293pur", dateReview.ToString("yyyy-MM-dd"), dateReview.ToString("yyyy-MM-dd"));
                         SaveDailyCondition(weatherData, city);
@@ -44,7 +47,7 @@ namespace Rainfall.WeatherFetcher.APIClasses
 
         private void SaveDailyCondition(IRestResponse<RootObject> weatherData, City city)
         {
-            if (weatherData.Data.Data.Weather == null || weatherData.Data == null)
+            if (weatherData.Data == null || weatherData.Data.Data == null || weatherData.Data.Data.Weather == null)
                 return;
 
             foreach (var weatherDataCondition in weatherData.Data.Data.Weather)
@@ -64,7 +67,7 @@ namespace Rainfall.WeatherFetcher.APIClasses
                             AlmanacDayId = weatherCondition.Id,
                             Date = weatherCondition.Date,
                             Hour = Convert.ToInt32(weatherHourlyDataCondition.Time),
-                            Precipitation = Convert.ToDouble(weatherHourlyDataCondition.PrecipMm),
+                            Precipitation = Convert.ToDouble(weatherHourlyDataCondition.precipMM),
                             Temp = Convert.ToDouble(weatherHourlyDataCondition.TempC)
                         }))
                     {
@@ -84,19 +87,29 @@ namespace Rainfall.WeatherFetcher.APIClasses
             {
                 using (var tx = _session.BeginTransaction())
                 {
-                    var weatherCondition = new AlmanacDay
+                     var query = from almanacday in _session.Query<AlmanacDay>()
+                            where almanacday.Date.Date == DateTime.Now.Date.Date && almanacday.CityId == city.Id
+                            select almanacday;
+                    if (!query.Any())
                     {
-                        CityId = city.Id,
-                        Date = DateTime.Now,
-                        AlmanacHourly = new AlmanacHourly[] { }
-                    };
-                    _session.Save(weatherCondition);
+                        var weatherCondition = new AlmanacDay
+                        {
+                            CityId = city.Id,
+                            Date = DateTime.Now,
+                            AlmanacHourly = new AlmanacHourly[] { }
+                        };
+                        _session.Save(weatherCondition);
+
+                        query = from almanacday in _session.Query<AlmanacDay>()
+                                where almanacday.Date.Date == DateTime.Now.Date.Date && almanacday.CityId == city.Id
+                                select almanacday;
+                    }
 
                     var hourlyCondition = new AlmanacHourly
                         {
-                            AlmanacDayId = weatherCondition.Id,
-                            Date = weatherCondition.Date,
-                            Hour = 0,
+                            AlmanacDayId = query.First().Id,
+                            Date = query.First().Date,
+                            Hour = DateTime.Now.TimeOfDay.Hours * 100,
                             Precipitation = Convert.ToDouble(weatherDataCondition.precipMM),
                             Temp = Convert.ToDouble(weatherDataCondition.temp_C)
                         };
@@ -122,11 +135,8 @@ namespace Rainfall.WeatherFetcher.APIClasses
             var cities = _session.Query<City>();
             foreach (var city in cities)
             {
-                if (!_session.Query<AlmanacDay>().Any(x => x.Date.Date == DateTime.Now.Date && x.City.Id == city.Id))
-                {
-                    var weatherData = ApiCall(_baseFreeUrl, "Honduras", city.Name, "evmw22suz8ep8rauv9qh5xcd", DateTime.Now.ToString("yyyy-MM-dd"), null);
-                    SaveCurrentCondition(weatherData, city);
-                }
+                var weatherData = ApiCall(_baseFreeUrl, "Honduras", city.Name, "evmw22suz8ep8rauv9qh5xcd", DateTime.Now.ToString("yyyy-MM-dd"), null);
+                SaveCurrentCondition(weatherData, city);
             }
         }
 
