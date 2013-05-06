@@ -1,6 +1,6 @@
 using System;
 
-namespace Rainfall.Domain
+namespace Rainfall.Domain.Entities
 {
     public interface IEntity
     {

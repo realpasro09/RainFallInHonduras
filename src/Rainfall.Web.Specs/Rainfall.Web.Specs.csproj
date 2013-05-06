@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AcklenAvenue.Testing.Moq">
+      <HintPath>..\..\lib\AcklenAvenue.Testing.Moq.1.0.3.0\lib\net40\AcklenAvenue.Testing.Moq.dll</HintPath>
+    </Reference>
     <Reference Include="Autofac">
       <HintPath>..\..\lib\Autofac.2.6.3.862\lib\NET40\Autofac.dll</HintPath>
     </Reference>
@@ -38,6 +41,9 @@
     </Reference>
     <Reference Include="Autofac.Integration.Mvc">
       <HintPath>..\..\lib\Autofac.Mvc3.2.6.3.862\lib\NET40\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper">
+      <HintPath>..\..\lib\AutoMapper.2.2.1\lib\net40\AutoMapper.dll</HintPath>
     </Reference>
     <Reference Include="Machine.Specifications">
       <HintPath>..\..\lib\Machine.Specifications.0.5.12\lib\net40\Machine.Specifications.dll</HintPath>
@@ -61,6 +67,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="when_getting_rainfall_data.cs" />
     <Compile Include="when_instantiating_all_controllers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -76,6 +83,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Rainfall.Domain\Rainfall.Domain.csproj">
+      <Project>{55829F00-1217-4408-BF6B-7FCFE98A46ED}</Project>
+      <Name>Rainfall.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Rainfall.Web\Rainfall.Web.csproj">
       <Project>{6A47814A-1776-4623-90D9-2DACFC5A0969}</Project>
       <Name>Rainfall.Web</Name>

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Rainfall.Domain
+namespace Rainfall.Domain.Entities
 {
     public class AlmanacDay:IEntity
     {

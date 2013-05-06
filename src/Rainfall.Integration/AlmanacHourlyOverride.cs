@@ -1,6 +1,7 @@
 ﻿using FluentNHibernate.Automapping;
 using FluentNHibernate.Automapping.Alterations;
 using Rainfall.Domain;
+using Rainfall.Domain.Entities;
 
 namespace Rainfall.Integration
 {

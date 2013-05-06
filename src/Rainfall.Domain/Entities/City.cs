@@ -1,4 +1,4 @@
-namespace Rainfall.Domain
+namespace Rainfall.Domain.Entities
 {
     public class City:IEntity
     {

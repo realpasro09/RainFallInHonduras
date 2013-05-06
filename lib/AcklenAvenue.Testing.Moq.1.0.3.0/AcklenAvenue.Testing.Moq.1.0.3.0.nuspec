@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>AcklenAvenue.Testing.Moq</id>
+    <version>1.0.3.0</version>
+    <title>AcklenAvenue.Testing.Moq</title>
+    <authors>Acklen Avenue</authors>
+    <owners>Acklen Avenue</owners>
+    <licenseUrl>http://license_url_here_or_delete_this_line/</licenseUrl>
+    <projectUrl>http://project_url_here_or_delete_this_line/</projectUrl>
+    <iconUrl>http://icon_url_here_or_delete_this_line/</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Extensions for Testing with Moq</description>
+    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <copyright>Copyright 2013</copyright>
+    <tags>Tag1 Tag2</tags>
+    <dependencies>
+      <dependency id="Moq" version="4.0.10827" />
+    </dependencies>
+    <references>
+      <reference file="AcklenAvenue.Testing.Moq.dll" />
+    </references>
+  </metadata>
+</package>
