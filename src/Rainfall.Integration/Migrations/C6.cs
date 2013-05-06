@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FluentMigrator;
 
-namespace Rainfall.DatabaseMigrator.Migrations
+namespace Rainfall.Integration.Migrations
 {
     [Migration(0)]
-    public class DatabaseSchemaV1 : Migration
+    public class C6 : Migration
     {
         public override void Up()
         {
@@ -24,9 +19,9 @@ namespace Rainfall.DatabaseMigrator.Migrations
             Create.Table("AlmanacHourly")
                 .WithColumn("Id").AsInt32().NotNullable().PrimaryKey().Identity()
                 .WithColumn("Date").AsDateTime().NotNullable()
+                .WithColumn("Hour").AsInt32().NotNullable()
                 .WithColumn("Precipitation").AsDouble().NotNullable()
-                .WithColumn("TempHigh").AsDouble().NotNullable()
-                .WithColumn("TempLow").AsDouble().NotNullable()
+                .WithColumn("Temperature").AsDouble().NotNullable()
                 .WithColumn("AlmanacDayId").AsInt32().NotNullable().ForeignKey("AlmanacDay", "Id");
 
             Insert.IntoTable("City").Row(new { Name = "San Pedro Sula" });

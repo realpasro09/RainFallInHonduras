@@ -13,11 +13,11 @@ namespace Rainfall.Domain
         public virtual IEnumerable<AlmanacHourly> AlmanacHourly { get; set; }
         public virtual double Get24HrsTempHigh()
         {
-            return AlmanacHourly.Max(almanacHourly => almanacHourly.Temp);
+            return AlmanacHourly.Max(almanacHourly => almanacHourly.Temperature);
         }
         public virtual double Get24HrsTempLow()
         {
-            return AlmanacHourly.Min(almanacHourly => almanacHourly.Temp);
+            return AlmanacHourly.Min(almanacHourly => almanacHourly.Temperature);
         }
         public virtual double Get24HrsPrecipitation()
         {

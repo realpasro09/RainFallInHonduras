@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using FluentMigrator;
-using FluentMigrator.Infrastructure;
 using FluentMigrator.Runner;
 using FluentMigrator.Runner.Announcers;
 using FluentMigrator.Runner.Initialization;
 using FluentMigrator.Runner.Processors.SqlServer;
-using Rainfall.DatabaseMigrator.Migrations;
 
-namespace Rainfall.DatabaseMigrator
+namespace Rainfall.Integration
 {
     public static class DataBaseMigrationRunner
     {
@@ -44,10 +38,10 @@ namespace Rainfall.DatabaseMigrator
         {
             var announcer = new TextWriterAnnouncer(Console.WriteLine);
             var assembly = Assembly.GetExecutingAssembly();
-
+            
             var migrationContext = new RunnerContext(announcer)
             {
-                Namespace = "Rainfall.DatabaseMigrator.Migrations"
+                Namespace = "Rainfall.Integration.Migrations"
             };
 
             var options = new MigrationOptions { PreviewOnly = false, Timeout = 60 };
