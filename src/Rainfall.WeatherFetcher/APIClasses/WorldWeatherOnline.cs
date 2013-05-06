@@ -20,7 +20,7 @@ namespace Rainfall.WeatherFetcher.APIClasses
         public WorldWeatherOnline(ISession session)
         {
             _session = session;
-            _startLoggingDate = new DateTime(2012,01,01);
+            _startLoggingDate = new DateTime(2013,04,01);
             _baseFreeUrl = "http://api.worldweatheronline.com/free/v1/weather.ashx?";
             _basePremiumUrl = "http://api.worldweatheronline.com/premium/v1/past-weather.ashx?";
         }

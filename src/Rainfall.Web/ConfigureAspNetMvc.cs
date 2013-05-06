@@ -29,7 +29,7 @@ namespace Rainfall.Web
         public static void RegisterWebRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
+            routes.Clear();
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

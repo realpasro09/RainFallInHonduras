@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 using AcklenAvenue.Testing.Moq;
 using AutoMapper;
@@ -18,27 +15,34 @@ namespace Rainfall.Web.Specs
 {
     public class when_getting_rainfall_data
     {
-        private Establish context = () =>
-            {
-                _mockRepository = new Mock<IRepository>();
-                _mockMappingEngine = new Mock<IMappingEngine>();
-                _rainfallController = new RainfallDataController(_mockRepository.Object, _mockMappingEngine.Object);
-                IQueryable<AlmanacDay> almanacDays = new List<AlmanacDay>() {new AlmanacDay(), new AlmanacDay()}.AsQueryable();
-                _mockRepository.Setup(x => x.Query(ThatHas.AnExpressionFor<AlmanacDay>().Build()))
-                               .Returns(almanacDays);
-                _almanacDayModels = new List<AlmanacDayModel>() {new AlmanacDayModel(), new AlmanacDayModel()};
-                _mockMappingEngine.Setup(x => x.Map<IEnumerable<AlmanacDay>, IEnumerable<AlmanacDayModel>>(almanacDays))
-                                  .Returns(_almanacDayModels);
-            };
+        static Mock<IRepository> _mockRepository;
+        static Mock<IMappingEngine> _mockMappingEngine;
+        static RainfallDataController _rainfallController;
+        static JsonResult _result;
+        static List<AlmanacDayGridItemModel> _almanacDayModels;
 
-        private Because of = () => _result = _rainfallController.Get();
+        Establish context =
+            () =>
+                {
+                    _mockRepository = new Mock<IRepository>();
+                    _mockMappingEngine = new Mock<IMappingEngine>();
+                    _rainfallController = new RainfallDataController(_mockRepository.Object,
+                                                                     _mockMappingEngine.Object);
 
-        private It should_return_rainfall_data = () => _result.Data.ShouldBeLike(_almanacDayModels);
-        
-        private static Mock<IRepository> _mockRepository;
-        private static Mock<IMappingEngine> _mockMappingEngine;
-        private static RainfallDataController _rainfallController;
-        private static JsonResult _result;
-        private static List<AlmanacDayModel> _almanacDayModels;
+                    IQueryable<AlmanacDay> almanacDays =
+                        new List<AlmanacDay> {new AlmanacDay(), new AlmanacDay()}.AsQueryable();
+                    _mockRepository.Setup(x => x.Query(ThatHas.AnExpressionFor<AlmanacDay>().Build()))
+                        .Returns(almanacDays);
+
+                    _almanacDayModels = new List<AlmanacDayGridItemModel>
+                                            {new AlmanacDayGridItemModel(), new AlmanacDayGridItemModel()};
+                    _mockMappingEngine.Setup(
+                        x => x.Map<IEnumerable<AlmanacDay>, IEnumerable<AlmanacDayGridItemModel>>(almanacDays))
+                        .Returns(_almanacDayModels);
+                };
+
+        Because of = () => _result = _rainfallController.Get();
+
+        It should_return_rainfall_data = () => _result.Data.ShouldBeLike(_almanacDayModels);
     }
 }

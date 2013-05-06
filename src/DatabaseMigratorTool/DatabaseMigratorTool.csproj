@@ -32,13 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FluentMigrator, Version=1.1.0.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Rainfall.FluentMigrator\bin\Debug\FluentMigrator.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentMigrator.Runner, Version=1.1.0.0, Culture=neutral, PublicKeyToken=aacfc7de5acabf05, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\FluentMigrator.Tools.1.1.0.0\tools\AnyCPU\40\FluentMigrator.Runner.dll</HintPath>
+    <Reference Include="FluentMigrator">
+      <HintPath>..\..\lib\FluentMigrator.1.1.0.0\lib\40\FluentMigrator.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -59,12 +54,9 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Rainfall.DatabaseMigrator\Rainfall.DatabaseMigrator.csproj">
-      <Project>{CC0EACAD-A1EB-4BB6-B4F2-B7666AC5D46B}</Project>
-      <Name>Rainfall.DatabaseMigrator</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Rainfall.Integration\Rainfall.Integration.csproj">
       <Project>{7cfb3824-9eef-46e3-810e-6cb165725510}</Project>
       <Name>Rainfall.Integration</Name>
