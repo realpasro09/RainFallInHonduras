@@ -8,7 +8,7 @@ namespace Rainfall.Domain
         public virtual DateTime Date { get; set; }
         public virtual int Hour { get; set; }
         public virtual double Precipitation { get; set; }
-        public virtual double Temp { get; set; }
+        public virtual double Temperature { get; set; }
         public virtual int AlmanacDayId { get; set; }
     }
 }

@@ -24,9 +24,9 @@ namespace Rainfall.DatabaseMigrator.Migrations
             Create.Table("AlmanacHourly")
                 .WithColumn("Id").AsInt32().NotNullable().PrimaryKey().Identity()
                 .WithColumn("Date").AsDateTime().NotNullable()
+                .WithColumn("Hour").AsInt32().NotNullable()
                 .WithColumn("Precipitation").AsDouble().NotNullable()
-                .WithColumn("TempHigh").AsDouble().NotNullable()
-                .WithColumn("TempLow").AsDouble().NotNullable()
+                .WithColumn("Temperature").AsDouble().NotNullable()
                 .WithColumn("AlmanacDayId").AsInt32().NotNullable().ForeignKey("AlmanacDay", "Id");
 
             Insert.IntoTable("City").Row(new { Name = "San Pedro Sula" });

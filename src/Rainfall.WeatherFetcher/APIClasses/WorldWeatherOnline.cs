@@ -68,7 +68,7 @@ namespace Rainfall.WeatherFetcher.APIClasses
                             Date = weatherCondition.Date,
                             Hour = Convert.ToInt32(weatherHourlyDataCondition.Time),
                             Precipitation = Convert.ToDouble(weatherHourlyDataCondition.precipMM),
-                            Temp = Convert.ToDouble(weatherHourlyDataCondition.TempC)
+                            Temperature = Convert.ToDouble(weatherHourlyDataCondition.TempC)
                         }))
                     {
                         _session.Save(hourlyCondition);
@@ -111,7 +111,7 @@ namespace Rainfall.WeatherFetcher.APIClasses
                             Date = query.First().Date,
                             Hour = DateTime.Now.TimeOfDay.Hours * 100,
                             Precipitation = Convert.ToDouble(weatherDataCondition.precipMM),
-                            Temp = Convert.ToDouble(weatherDataCondition.temp_C)
+                            Temperature = Convert.ToDouble(weatherDataCondition.temp_C)
                         };
                     _session.Save(hourlyCondition);
                     tx.Commit();
