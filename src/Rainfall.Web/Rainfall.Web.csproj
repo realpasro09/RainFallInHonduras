@@ -134,8 +134,9 @@
     <Compile Include="App_Start\DurandalBundleConfig.cs" />
     <Compile Include="App_Start\DurandalConfig.cs" />
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="ConfigureAutomapper.cs" />
     <Compile Include="Controllers\RainfallDataController.cs" />
-    <Compile Include="Models\AlmanacDayModel.cs" />
+    <Compile Include="Models\AlmanacDayGridItemModel.cs" />
     <Compile Include="RegisterInjectedDependencies.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="ConfigureDatabaseIntegration.cs" />
