@@ -8,9 +8,12 @@ SOLUTION = "src/Rainfall.sln"
 TRXFILE = File.join(REPORTS_PATH, SOLUTION + '.trx')
 CONFIG = "Debug"
 
+
 task :default => [:all]
 
 task :all => [:prepare, :compile, :tests ]
+
+task :migrate => [:all, :migrateDatabase]
 
 task :prepare do
 	require 'fileutils'
@@ -20,6 +23,10 @@ task :prepare do
 task :compile do
 	puts 'Compiling solution...'
 	sh "#{MSBUILD_PATH} /p:Configuration=#{CONFIG} /p:OutDir=\"#{BUILD_PATH}/\" /p:PostBuildEvent=\"\" #{SOLUTION}"
+end
+
+task :migrateDatabase do
+	sh "#{BUILD_PATH}/DatabaseMigratorTool.exe"
 end
 
 task :tests do

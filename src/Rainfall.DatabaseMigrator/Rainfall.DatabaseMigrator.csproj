@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="DatabaseMigrationRunner.cs" />
     <Compile Include="Migrations\DatabaseSchemaV1.cs" />
+    <Compile Include="Migrations\DatabaseSchemaV2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
