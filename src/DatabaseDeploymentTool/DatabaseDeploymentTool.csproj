@@ -88,6 +88,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SeedAlamanacDays.cs" />
+    <Compile Include="SeedCity.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Rainfall.Domain\Rainfall.Domain.csproj">
