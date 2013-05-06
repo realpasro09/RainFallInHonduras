@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FluentMigrator;
 
-namespace Rainfall.DatabaseMigrator.Migrations
+namespace Rainfall.Integration.Migrations
 {
     [Migration(0)]
-    public class DatabaseSchemaV1 : Migration
+    public class C6 : Migration
     {
         public override void Up()
         {

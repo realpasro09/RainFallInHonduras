@@ -6,8 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentMigrator;
-using Rainfall.DatabaseMigrator;
-using Rainfall.DatabaseMigrator.Migrations;
+using Rainfall.Integration;
 
 namespace DatabaseMigratorTool
 {
