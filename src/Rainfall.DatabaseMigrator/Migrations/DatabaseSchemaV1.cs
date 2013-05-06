@@ -7,7 +7,7 @@ using FluentMigrator;
 
 namespace Rainfall.DatabaseMigrator.Migrations
 {
-    [Migration(1)]
+    [Migration(0)]
     public class DatabaseSchemaV1 : Migration
     {
         public override void Up()

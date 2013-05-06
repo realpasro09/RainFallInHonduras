@@ -22,21 +22,22 @@ namespace Rainfall.DatabaseMigrator
             public int Timeout { get; set; }
         }
 
-        public static void MigrateUp(string connectionString, int version, IMigration schema)
+        public static void MigrateUp(string connectionString)
         {
-            // var announcer = new NullAnnouncer();
             var runner = GetRunner(connectionString);
-            var info = new MigrationInfo(version, TransactionBehavior.Default, schema);
-            
-            runner.ApplyMigrationUp(info, true);
+            runner.MigrateUp();
         }
 
-        public static void MigrateDown(string connectionString, int version, IMigration scheema)
+        public static void MigrateUp(string connectionString, int version)
         {
             var runner = GetRunner(connectionString);
-            var info = new MigrationInfo(version, TransactionBehavior.Default, scheema);
+            runner.MigrateUp(version);
+        }
 
-            runner.ApplyMigrationDown(info, true);
+        public static void MigrateDown(string connectionString, int version)
+        {
+            var runner = GetRunner(connectionString);
+            runner.MigrateDown(version);
         }
 
         private static MigrationRunner GetRunner(string connectionString)
@@ -46,7 +47,7 @@ namespace Rainfall.DatabaseMigrator
 
             var migrationContext = new RunnerContext(announcer)
             {
-                Namespace = "Rainfall.FluenMigrator"
+                Namespace = "Rainfall.DatabaseMigrator.Migrations"
             };
 
             var options = new MigrationOptions { PreviewOnly = false, Timeout = 60 };
