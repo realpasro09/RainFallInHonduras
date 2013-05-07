@@ -20,7 +20,8 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'durandal/plu
             //configure routing
             router.useConvention();
             router.mapNav('welcome');
-            router.mapNav('flickr');
+            //router.mapNav('flickr');
+            router.mapNav('RainFallData');
 
             app.adaptToDevice();
 

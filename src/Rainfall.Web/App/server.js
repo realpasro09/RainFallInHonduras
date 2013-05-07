@@ -1,4 +1,4 @@
-﻿define(["jquery", "config"], function (jquery, configuration) {
+﻿define(["config"], function (jquery, configuration) {
 
     var server = function ($, config) {
 
