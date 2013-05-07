@@ -1,4 +1,4 @@
-﻿define(["jquery", "config"], function (jquery, configuration) {
+﻿define(["config"], function (configuration) {
 
     var server = function ($, config) {
 
@@ -60,7 +60,7 @@
             Delete: del,
             Post: post,
         };
-    }(jquery, configuration);
+    }($, configuration);
 
     return server;
 });
