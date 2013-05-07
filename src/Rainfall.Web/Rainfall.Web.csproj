@@ -149,6 +149,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\config.js" />
+    <Content Include="App\datacontext.js" />
     <Content Include="App\durandal\amd\almond-custom.js" />
     <Content Include="App\durandal\amd\optimizer.exe" />
     <Content Include="App\durandal\amd\r.js" />
@@ -173,6 +174,7 @@
     <Content Include="App\main-built.js" />
     <Content Include="App\main.js" />
     <Content Include="App\server.js" />
+<<<<<<< HEAD
     <Content Include="App\viewmodels\flickr.js" />
     <Content Include="App\viewmodels\RainFallData.js" />
     <Content Include="App\viewmodels\shell.js" />
@@ -182,6 +184,10 @@
     <Content Include="App\views\RainFallData.html" />
     <Content Include="App\views\shell.html" />
     <Content Include="App\views\welcome.html" />
+=======
+    <Content Include="App\viewmodels\rainfalldata.js" />
+    <Content Include="App\views\rainfalldata.html" />
+>>>>>>> 5cd2816f6df4f110122f1a4838e00fb6fc90c0ea
     <Content Include="Content\app.css" />
     <Content Include="Content\bootstrap-responsive.css" />
     <Content Include="Content\bootstrap-responsive.min.css" />
@@ -302,7 +308,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\_splash.cshtml" />
-    <Content Include="Views\RainfallData\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

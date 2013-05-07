@@ -1,4 +1,4 @@
-﻿requirejs.config({
+requirejs.config({
     paths: {
         'text': 'durandal/amd/text'
     }
@@ -19,13 +19,9 @@ define(['durandal/app', 'durandal/viewLocator', 'durandal/system', 'durandal/plu
 
             //configure routing
             router.useConvention();
-            router.mapNav('welcome');
-            //router.mapNav('flickr');
-            router.mapNav('RainFallData');
-
             app.adaptToDevice();
 
             //Show the app by setting the root view model for our application with a transition.
-            app.setRoot('viewmodels/shell', 'entrance');
+            app.setRoot('viewmodels/rainfalldata', 'entrance');
         });
     });
