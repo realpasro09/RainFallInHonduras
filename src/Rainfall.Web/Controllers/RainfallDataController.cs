@@ -27,7 +27,7 @@ namespace Rainfall.Web.Controllers
 
         public JsonResult Get()
         {
-            var almanacDays = _repository.Query<AlmanacDay>(x=> x.Date >= SystemDateTime.Now().AddDays(-30));
+            var almanacDays = _repository.Query<AlmanacDay>(x=> x.Date >= SystemDateTime.Now().AddDays(-30)).OrderByDescending(x=>x.Date);
             
             var mappedAlmanacDays =
                 _mappingEngine.Map<IEnumerable<AlmanacDay>, IEnumerable<AlmanacDayGridItemModel>>(almanacDays);
