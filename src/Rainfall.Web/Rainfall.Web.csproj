@@ -401,6 +401,8 @@
     <Content Include="Scripts\knockout.simpleGrid.js" />
     <Content Include="Scripts\koGrid-2.1.1.debug.js" />
     <Content Include="Scripts\koGrid-2.1.1.js" />
+    <Content Include="Scripts\koGrid.debug.js" />
+    <Content Include="Scripts\koGrid.min.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
     <Content Include="Scripts\sammy-0.7.4.js" />
     <Content Include="Scripts\sammy-0.7.4.min.js" />

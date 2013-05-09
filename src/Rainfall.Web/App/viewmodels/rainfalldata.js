@@ -1,11 +1,7 @@
 define(["dataContext"], function (dc) {
-    
     var viewModel = function () {
         var self = this;
         this.rainfallData = ko.observableArray([]);
-        
-        
-        
         this.gridOptions = {
             data: rainfallData,
             //enablePaging: true,
@@ -25,4 +21,5 @@ define(["dataContext"], function (dc) {
         };
     }();
     return viewModel;
+    
 });
