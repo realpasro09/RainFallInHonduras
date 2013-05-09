@@ -22,6 +22,9 @@ namespace Rainfall.Web
                                        .ForMember(x => x.Precipitation, o => o.MapFrom(x => x.Get24HrsPrecipitation()))
                                        .ForMember(x => x.Date, o => o.MapFrom(x => x.Date.ToShortDateString()))
                                        .ForMember(x => x.City, o => o.MapFrom(x => x.City.Name));
+                                 Mapper.CreateMap<City, CityFilterLocationModel>()
+                                       .ForMember(x => x.CityId, o => o.MapFrom(x => x.Id))
+                                       .ForMember(x => x.Name, o => o.MapFrom(x => x.Name));
                              }; }
         }
 

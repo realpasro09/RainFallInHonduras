@@ -42,7 +42,7 @@ namespace Rainfall.Web.Specs
 
         private Because of = () => _result = _rainfallController.GetLocations();
 
-        private It should_return_data_filter_by_location = () => { };
+        private It should_return_data_filter_by_location = () => _result.Data.ShouldBeLike(_citiesModel);
         
     }
 }
