@@ -33,8 +33,8 @@ namespace Rainfall.Web.Specs
                 IQueryable<AlmanacDay> almanacDays =
                         new List<AlmanacDay> { new AlmanacDay(), new AlmanacDay() }.AsQueryable();
                 _mockRepository.Setup(x => x.Query(ThatHas.AnExpressionFor<AlmanacDay>()
-                    .ThatMatches(new AlmanacDay() { City = new City() { Id = 2, Name = "Tegucigalpa" }})
-                    .ThatDoesNotMatch(new AlmanacDay(){City = new City(){Id = 1, Name = "San Pedro Sula"}})
+                    .ThatMatches(new AlmanacDay() { CityId = 2})
+                    .ThatDoesNotMatch(new AlmanacDay(){CityId = 1})
                     .Build()))
                     .Returns(almanacDays);
 
