@@ -42,5 +42,14 @@ namespace Rainfall.Web.Controllers
                 _mappingEngine.Map<IEnumerable<City>, IEnumerable<CityFilterLocationModel>>(locations);
             return Json(mappedLocations, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GetRainfallDataByLocation(int locationId)
+        {
+            var almanacDays = _repository.Query<AlmanacDay>(x => x.CityId == locationId);
+            var mappedAlmanacDays =
+                _mappingEngine.Map<IEnumerable<AlmanacDay>, IEnumerable<AlmanacDayGridItemModel>>(almanacDays);
+
+            return Json(mappedAlmanacDays, JsonRequestBehavior.AllowGet);
+        }
     }
 }
