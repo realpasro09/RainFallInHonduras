@@ -70,6 +70,7 @@ define(["dataContext"], function (dc) {
                             { field: 'TempLow', displayName: "Lower Temperature", width: 150 }
                         ]
         };
+
         return {
             RainfallData: rainfallData,
             RainfallDatagridOption: gridOptions,
