@@ -21,33 +21,38 @@ namespace Rainfall.Web.Specs
         static JsonResult _result;
         static List<AlmanacDayGridItemModel> _almanacDayModels;
         static int _locationId;
-        private Establish context = () =>
-            {
-                
-                _mockRepository = new Mock<IRepository>();
-                _mockMappingEngine = new Mock<IMappingEngine>();
-                _rainfallController = new RainfallDataController(_mockRepository.Object,
-                                                                 _mockMappingEngine.Object);
 
-                _locationId = 2;
-                IQueryable<AlmanacDay> almanacDays =
-                        new List<AlmanacDay> { new AlmanacDay(), new AlmanacDay() }.AsQueryable();
-                _mockRepository.Setup(x => x.Query(ThatHas.AnExpressionFor<AlmanacDay>()
-                    .ThatMatches(new AlmanacDay() { CityId = 2})
-                    .ThatDoesNotMatch(new AlmanacDay(){CityId = 1})
-                    .Build()))
-                    .Returns(almanacDays);
+        Establish context =
+            () =>
+                {
+                    _mockRepository = new Mock<IRepository>();
+                    _mockMappingEngine = new Mock<IMappingEngine>();
+                    _rainfallController = new RainfallDataController(_mockRepository.Object,
+                                                                     _mockMappingEngine.Object);
 
-                _almanacDayModels = new List<AlmanacDayGridItemModel> { new AlmanacDayGridItemModel(), new AlmanacDayGridItemModel() };
-                _mockMappingEngine.Setup(
-                    x => x.Map<IEnumerable<AlmanacDay>, IEnumerable<AlmanacDayGridItemModel>>(almanacDays))
-                    .Returns(_almanacDayModels);
-                
-            };
+                    _locationId = 2;
+                    IQueryable<AlmanacDay> almanacDays =
+                        new List<AlmanacDay> {new AlmanacDay(), new AlmanacDay()}.AsQueryable();
+                    _mockRepository.Setup(x => x.Query(ThatHas.AnExpressionFor<AlmanacDay>()
+                                                           .ThatMatches(new AlmanacDay {CityId = 2})
+                                                           .ThatDoesNotMatch(new AlmanacDay {CityId = 1})
+                                                           .Build()))
+                        .Returns(almanacDays);
 
-        
-        private Because of = () => _result = _rainfallController.GetRainfallDataByLocation(_locationId);
+                    _almanacDayModels = new List<AlmanacDayGridItemModel>
+                                            {
+                                                new AlmanacDayGridItemModel(),
+                                                new AlmanacDayGridItemModel()
+                                            };
+                    _mockMappingEngine.Setup(
+                        x =>
+                        x.Map<IEnumerable<AlmanacDay>, IEnumerable<AlmanacDayGridItemModel>>(almanacDays))
+                        .Returns(_almanacDayModels);
+                };
 
-        private It should_do_return_filtered_data_by_location = () => _result.Data.ShouldBeLike(_almanacDayModels);
+
+        Because of = () => _result = _rainfallController.GetRainfallDataByLocation(_locationId);
+
+        It should_do_return_filtered_data_by_location = () => _result.Data.ShouldBeLike(_almanacDayModels);
     }
 }
