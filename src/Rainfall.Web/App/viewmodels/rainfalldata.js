@@ -3,7 +3,17 @@ define(["dataContext"], function (dc) {
     var viewModel = function () {
         this.rainfallData = ko.observableArray([]);
         this.locationData = ko.observableArray([]);
-
+        this.selectValue = ko.observable();
+       
+        
+        this.selectValue.subscribe(function(val) {
+            dc.RainfallData.GetRainfallDataByLocation(val.CityId).done(function (locationdataFromServer) {
+                $.each(locationdataFromServer, function (index, c) {
+                    console.log(c);
+                });
+            });
+        });
+        
         dc.RainfallData.Get().done(function (rainfalldataFromServer) {
             $.each(rainfalldataFromServer, function (index, c) {
                 rainfallData.push(c);
@@ -30,6 +40,7 @@ define(["dataContext"], function (dc) {
             RainfallData: rainfallData,
             RainfallDatagridOption: gridOptions,
             LocationData: locationData,
+            SelectedValue: selectValue
         };
     }();
     return viewModel;
