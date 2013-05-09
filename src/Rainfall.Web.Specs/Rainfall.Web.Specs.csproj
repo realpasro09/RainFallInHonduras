@@ -75,6 +75,7 @@
     <Compile Include="when_instantiating_all_controllers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="when_mapping_an_almanac_day_to_a_model.cs" />
+    <Compile Include="when_mapping_a_city_to_a_model.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="local.config">
