@@ -3,6 +3,7 @@ using System.Linq;
 using NHibernate;
 using NHibernate.Linq;
 using Rainfall.Domain;
+using Rainfall.Domain.Entities;
 using Rainfall.WeatherFetcher.JsonGeneratedClasses;
 using RestSharp;
 
@@ -19,7 +20,7 @@ namespace Rainfall.WeatherFetcher.APIClasses
         public WorldWeatherOnline(ISession session)
         {
             _session = session;
-            _startLoggingDate = new DateTime(2013,01,01);
+            _startLoggingDate = new DateTime(2013,04,01);
             _baseFreeUrl = "http://api.worldweatheronline.com/free/v1/weather.ashx?";
             _basePremiumUrl = "http://api.worldweatheronline.com/premium/v1/past-weather.ashx?";
         }
@@ -37,7 +38,7 @@ namespace Rainfall.WeatherFetcher.APIClasses
                                     select almanacday;
                     if (!query.Any())
                     {
-                        var weatherData = ApiCall(_basePremiumUrl, "Honduras", city.Name, "2e2rdxvat4nk5vvawt293pur", dateReview.ToString("yyyy-MM-dd"), dateReview.ToString("yyyy-MM-dd"));
+                        var weatherData = ApiCall(_basePremiumUrl, "Honduras", city.Name, "3bd555xr394vkarfwjbtqutv", dateReview.ToString("yyyy-MM-dd"), dateReview.ToString("yyyy-MM-dd"));
                         SaveDailyCondition(weatherData, city);
                     }
                     dateReview = dateReview.AddDays(1);

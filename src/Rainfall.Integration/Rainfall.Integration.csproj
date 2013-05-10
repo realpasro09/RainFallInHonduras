@@ -69,6 +69,7 @@
     <Compile Include="MappingScheme.cs" />
     <Compile Include="Migrations\C6.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

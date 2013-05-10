@@ -4,6 +4,7 @@ using FluentNHibernate.Automapping;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Conventions.Helpers;
 using Rainfall.Domain;
+using Rainfall.Domain.Entities;
 
 namespace Rainfall.Integration
 {

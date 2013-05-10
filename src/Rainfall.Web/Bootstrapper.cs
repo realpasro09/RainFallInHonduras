@@ -22,7 +22,7 @@ namespace Rainfall.Web
                     new RegisterInjectedDependencies(),
                     new ConfigureDatabaseIntegration(),
                     new ConfigureAspNetMvc(),
-                    //new AutomapperConfigurationBootstrapperTask(),
+                    new ConfigureAutomapper(),
                 }.ForEach(bootstrapper => bootstrapper.Task(builder));
 
             var container = builder.Build();
