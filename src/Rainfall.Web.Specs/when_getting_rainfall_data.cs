@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using AcklenAvenue.Testing.Moq;
 using AutoMapper;
 using Machine.Specifications;
 using Moq;
+using Rainfall.Domain;
 using Rainfall.Domain.Entities;
 using Rainfall.Domain.Services;
 using Rainfall.Web.Controllers;
@@ -31,7 +33,12 @@ namespace Rainfall.Web.Specs
 
                     IQueryable<AlmanacDay> almanacDays =
                         new List<AlmanacDay> {new AlmanacDay(), new AlmanacDay()}.AsQueryable();
-                    _mockRepository.Setup(x => x.Query(ThatHas.AnExpressionFor<AlmanacDay>().Build()))
+                    DateTime dateTime = DateTime.Now;
+                    SystemDateTime.Now = () => dateTime;                        
+                    _mockRepository.Setup(x => x.Query(ThatHas.AnExpressionFor<AlmanacDay>()
+                        .ThatMatches(new AlmanacDay(){Date = dateTime.AddDays(-30)})
+                        .ThatDoesNotMatch(new AlmanacDay(){Date = dateTime.AddDays(-31)},new AlmanacDay(){Date = dateTime.AddDays(-32)})
+                        .Build()))
                         .Returns(almanacDays);
 
                     _almanacDayModels = new List<AlmanacDayGridItemModel>
@@ -43,6 +50,6 @@ namespace Rainfall.Web.Specs
 
         Because of = () => _result = _rainfallController.Get();
 
-        It should_return_rainfall_data = () => _result.Data.ShouldBeLike(_almanacDayModels);
+        It should_return_rainfall_data_over_the_past_30_day = () => _result.Data.ShouldBeLike(_almanacDayModels);
     }
 }

@@ -33,9 +33,16 @@
         
         @Scripts.Render("~/scripts/vendor")
         
+        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.tmpl.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/knockout.simpleGrid.js")"></script>
+        <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/KoGrid.css")" />
+        <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Style.css")" />
+
         @if(HttpContext.Current.IsDebuggingEnabled) {
             <script type="text/javascript" src="@Url.Content("~/App/durandal/amd/require.js")" data-main="@Url.Content("~/App/main")"></script>
-        } else {
+        }
+        else
+        {
             <script type="text/javascript" src="@Url.Content("~/App/main-built.js")"></script>
         }
     </body>

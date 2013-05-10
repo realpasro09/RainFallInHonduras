@@ -1,0 +1,35 @@
+body { font-family: arial; font-size: 14px; }
+.ko-grid { margin-bottom: 1em; border: 1px solid silver; background-color:White; }
+.ko-grid th { text-align:left; background-color: Black; color:White; }
+.ko-grid td, th { padding: 0.4em; }
+.ko-grid tr:nth-child(odd) { background-color: #DDD; }
+.ko-grid-pageLinks {width: 370px; margin-bottom: 1em; }
+.ko-grid-pageLinks a { padding: 0.5em; }
+.ko-grid-pageLinks a.selected { background-color: Black; color: White; }
+
+li { list-style-type: disc; margin-left: 20px; }
+.modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 ) 
+                url('../Content/images/waiting.gif') 
+                50% 50% 
+                no-repeat;
+}
+
+/* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden */
+body.loading {
+    overflow: hidden;   
+}
+
+/* Anytime the body has the loading class, our
+   modal element will be visible */
+body.loading .modal {
+    display: block;
+}
