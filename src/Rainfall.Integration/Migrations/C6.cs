@@ -7,6 +7,15 @@ namespace Rainfall.Integration.Migrations
     {
         public override void Up()
         {
+            if (Schema.Table("AlmanacHourly").Exists())
+                Delete.Table("AlmanacHourly");
+
+            if (Schema.Table("AlmanacDay").Exists())
+                Delete.Table("AlmanacDay");
+
+            if (Schema.Table("City").Exists())
+                Delete.Table("City");
+
             Create.Table("City")
                   .WithColumn("Id").AsInt32().NotNullable().PrimaryKey().Identity()
                   .WithColumn("Name").AsString().NotNullable();
