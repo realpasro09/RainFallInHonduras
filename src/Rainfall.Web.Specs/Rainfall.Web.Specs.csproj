@@ -70,7 +70,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="when_getting_data_filter_by_location.cs" />
+    <Compile Include="when_getting_location_data.cs" />
     <Compile Include="when_getting_rainfall_data.cs" />
     <Compile Include="when_getting_rainfull_data_filtered_by_location.cs" />
     <Compile Include="when_instantiating_all_controllers.cs" />

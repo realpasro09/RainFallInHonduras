@@ -1,5 +1,10 @@
 
-﻿<section style="height: 300px; width:1200px;">
-    <div class="gridStyle"  data-bind="koGrid: gridOptions">
-    </div>
-</section>
+﻿<section >
+﻿    <div>
+﻿        <select data-bind="options: LocationData, value:SelectedValue , optionsText: 'Name'" ></select>
+﻿    </div>
+﻿    
+﻿    <div data-bind='simpleGrid: gridViewModel'> </div>
+    <div class="modal"></div>﻿
+﻿</section>
+

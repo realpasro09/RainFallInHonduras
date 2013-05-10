@@ -135,6 +135,7 @@
     <Compile Include="App_Start\DurandalConfig.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="ConfigureAutomapper.cs" />
+    <Compile Include="Controllers\LocationDataController.cs" />
     <Compile Include="Controllers\RainfallDataController.cs" />
     <Compile Include="Models\AlmanacDayGridItemModel.cs" />
     <Compile Include="Models\CityFilterLocationModel.cs" />
@@ -193,6 +194,7 @@
     <Content Include="Content\images\icon.png" />
     <Content Include="Content\images\ios-startup-image-landscape.png" />
     <Content Include="Content\images\ios-startup-image-portrait.png" />
+    <Content Include="Content\images\waiting.gif" />
     <Content Include="Content\kendo\2013.1.319\Black\editor.png" />
     <Content Include="Content\kendo\2013.1.319\Black\imagebrowser.png" />
     <Content Include="Content\kendo\2013.1.319\Black\loading-image.gif" />
@@ -393,6 +395,10 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.8.20.js" />
     <Content Include="Scripts\jquery-ui-1.8.20.min.js" />
+    <Content Include="Scripts\jquery.tmpl.js" />
+    <Content Include="Scripts\jquery.tmpl.min.js" />
+    <Content Include="Scripts\jquery.tmplPlus.js" />
+    <Content Include="Scripts\jquery.tmplPlus.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\knockout-2.2.1.debug.js" />
