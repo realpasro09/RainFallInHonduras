@@ -193,6 +193,7 @@
     <Content Include="Content\images\icon.png" />
     <Content Include="Content\images\ios-startup-image-landscape.png" />
     <Content Include="Content\images\ios-startup-image-portrait.png" />
+    <Content Include="Content\images\waiting.gif" />
     <Content Include="Content\kendo\2013.1.319\Black\editor.png" />
     <Content Include="Content\kendo\2013.1.319\Black\imagebrowser.png" />
     <Content Include="Content\kendo\2013.1.319\Black\loading-image.gif" />

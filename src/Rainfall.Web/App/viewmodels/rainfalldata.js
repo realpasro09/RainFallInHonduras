@@ -4,7 +4,12 @@ define(["dataContext"], function (dc) {
         this.rainfallData = ko.observableArray([]);
         this.locationData = ko.observableArray([]);
         this.selectValue = ko.observable();
-
+        $(document).ajaxStart(function () {
+            $("body").addClass("loading");
+        });
+        $(document).ajaxStop(function () {
+            $("body").removeClass("loading");
+        });
         dc.RainfallData.GetLocations().done(function (locationdataFromServer) {
             $.each(locationdataFromServer, function (index, c) {
                 locationData.push(c);
