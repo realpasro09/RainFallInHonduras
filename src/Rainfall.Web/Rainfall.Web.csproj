@@ -135,6 +135,7 @@
     <Compile Include="App_Start\DurandalConfig.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="ConfigureAutomapper.cs" />
+    <Compile Include="Controllers\LocationDataController.cs" />
     <Compile Include="Controllers\RainfallDataController.cs" />
     <Compile Include="Models\AlmanacDayGridItemModel.cs" />
     <Compile Include="Models\CityFilterLocationModel.cs" />

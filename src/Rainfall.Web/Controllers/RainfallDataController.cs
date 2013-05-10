@@ -33,17 +33,6 @@ namespace Rainfall.Web.Controllers
             return Json(mappedAlmanacDays, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetLocations()
-        {
-            var locations = _repository.Query<City>(x => true).OrderBy(x => x.Name);
-            var mappedLocations =
-                _mappingEngine.Map<IEnumerable<City>, IEnumerable<CityFilterLocationModel>>(locations);
-
-            ((List<CityFilterLocationModel>)mappedLocations).Add(new CityFilterLocationModel(){CityId = 0, Name = "All"});
-            mappedLocations = mappedLocations.OrderBy(x => x.Name);
-            return Json(mappedLocations, JsonRequestBehavior.AllowGet);
-        }
-
         public JsonResult GetRainfallDataByLocation(int locationId)
         {
             var almanacDays = _repository.Query<AlmanacDay>(x => x.CityId == locationId);

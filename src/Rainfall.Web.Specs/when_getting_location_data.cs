@@ -13,11 +13,11 @@ using It = Machine.Specifications.It;
 
 namespace Rainfall.Web.Specs
 {
-    public class when_getting_data_filter_by_location
+    public class when_getting_location_data
     {
         static Mock<IRepository> _mockRepository;
         static Mock<IMappingEngine> _mockMappingEngine;
-        static RainfallDataController _rainfallController;
+        static LocationDataController _locationController;
         static List<CityFilterLocationModel> _citiesModel;
         static JsonResult _result;
 
@@ -26,7 +26,7 @@ namespace Rainfall.Web.Specs
                 {
                     _mockRepository = new Mock<IRepository>();
                     _mockMappingEngine = new Mock<IMappingEngine>();
-                    _rainfallController = new RainfallDataController(_mockRepository.Object,
+                    _locationController = new LocationDataController(_mockRepository.Object,
                                                                      _mockMappingEngine.Object);
 
                     IQueryable<City> cities = new List<City> {new City(), new City()}.AsQueryable();
@@ -42,8 +42,8 @@ namespace Rainfall.Web.Specs
                         .Returns(_citiesModel);
                 };
 
-        Because of = () => _result = _rainfallController.GetLocations();
+        Because of = () => _result = _locationController.Get();
 
-        It should_return_data_filter_by_location = () => _result.Data.ShouldBeLike(_citiesModel);
+        It should_return_location_data = () => _result.Data.ShouldBeLike(_citiesModel);
     }
 }

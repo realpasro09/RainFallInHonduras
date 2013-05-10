@@ -1,22 +1,22 @@
 define(["dataContext"], function (dc) {
 
     var viewModel = function () {
-        this.rainfallData = ko.observableArray([]);
-        this.locationData = ko.observableArray([]);
-        this.selectValue = ko.observable();
+        var rainfallData = ko.observableArray([]);
+        var locationData = ko.observableArray([]);
+        var selectValue = ko.observable();
         $(document).ajaxStart(function () {
             $("body").addClass("loading");
         });
         $(document).ajaxStop(function () {
             $("body").removeClass("loading");
         });
-        dc.RainfallData.GetLocations().done(function (locationdataFromServer) {
+        dc.LocationData.Get().done(function (locationdataFromServer) {
             $.each(locationdataFromServer, function (index, c) {
                 locationData.push(c);
             });
         });
 
-        this.selectValue.subscribe(function (val) {
+        selectValue.subscribe(function (val) {
             if (val.CityId == 0) {
                 dc.RainfallData.Get().done(function (rainfalldataFromServer) {
                     rainfallData.removeAll();
@@ -38,10 +38,7 @@ define(["dataContext"], function (dc) {
             };
         });
 
-
-
-
-        this.gridViewModel = new ko.simpleGrid.viewModel({
+        gridViewModel = new ko.simpleGrid.viewModel({
             data: rainfallData,
             columns: [
                 { headerText: "Date", rowText: "Date" },
