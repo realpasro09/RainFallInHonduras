@@ -1,18 +1,20 @@
 define(["dataContext"], function (dc) {
     
     var viewModel = function () {
-        this.rainfallData = ko.observableArray([]);
+        var rainfallData = ko.observableArray([]);
+        var title = ko.observable(":)");
         this.locationData = ko.observableArray([]);
         this.selectValue = ko.observable();
-       
-        
-        this.selectValue.subscribe(function(val) {
-            dc.RainfallData.GetRainfallDataByLocation(val.CityId).done(function (locationdataFromServer) {
-                $.each(locationdataFromServer, function (index, c) {
-                    console.log(c);
-                });
-            });
+
+        var self = this;
+        this.selectValue.subscribe(function (val) {
+            console.log(val.CityId);
+            if (val.CityId != 0) {
+                title = ko.observable(":P");;
+            }
         });
+        
+        
         
         dc.RainfallData.Get().done(function (rainfalldataFromServer) {
             $.each(rainfalldataFromServer, function (index, c) {
@@ -40,7 +42,8 @@ define(["dataContext"], function (dc) {
             RainfallData: rainfallData,
             RainfallDatagridOption: gridOptions,
             LocationData: locationData,
-            SelectedValue: selectValue
+            SelectedValue: selectValue,
+            Title : title
         };
     }();
     return viewModel;

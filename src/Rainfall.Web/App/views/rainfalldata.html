@@ -3,8 +3,10 @@
 ﻿    <div>
 ﻿        <select data-bind="options: LocationData, value:SelectedValue , optionsText: 'Name'" ></select>
 ﻿    </div>
-﻿    <div data-bind="foreach: RainfallData">
+    <div data-bind="rainFallElements: SelectedValue"></div> 
+
+﻿    <!--<div data-bind="foreach: RainfallData">
 ﻿        <div data-bind="html: Date"></div>  
         <div data-bind="html: City"></div>  
-﻿    </div>
+﻿    </div>-->
 ﻿</section>
