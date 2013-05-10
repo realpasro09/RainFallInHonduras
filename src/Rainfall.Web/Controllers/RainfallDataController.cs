@@ -22,12 +22,10 @@ namespace Rainfall.Web.Controllers
             _mappingEngine = mappingEngine;
         }
 
-        //
-        // GET: /RainfallData/
-
         public JsonResult Get()
         {
-            var almanacDays = _repository.Query<AlmanacDay>(x=> x.Date >= SystemDateTime.Now().AddDays(-30)).OrderByDescending(x=>x.Date);
+            var almanacDays = 
+                _repository.Query<AlmanacDay>(x=> x.Date >= SystemDateTime.Now().AddDays(-30)).OrderByDescending(x=>x.Date);            
             
             var mappedAlmanacDays =
                 _mappingEngine.Map<IEnumerable<AlmanacDay>, IEnumerable<AlmanacDayGridItemModel>>(almanacDays);
