@@ -5,40 +5,53 @@ define(["dataContext"], function (dc) {
         this.locationData = ko.observableArray([]);
         this.selectValue = ko.observable();
        
-        
-        this.selectValue.subscribe(function(val) {
-            dc.RainfallData.GetRainfallDataByLocation(val.CityId).done(function (locationdataFromServer) {
-                $.each(locationdataFromServer, function (index, c) {
-                    console.log(c);
-                });
-            });
-        });
-        
-        dc.RainfallData.Get().done(function (rainfalldataFromServer) {
-            $.each(rainfalldataFromServer, function (index, c) {
-                rainfallData.push(c);
-            });
-        });
-        
         dc.RainfallData.GetLocations().done(function (locationdataFromServer) {
             $.each(locationdataFromServer, function (index, c) {
                 locationData.push(c);
             });
         });
         
-        this.gridOptions = {
-            data: rainfallData,
-            columnDefs: [{ field: 'Date', width: 90 },
-                            { field: 'City', width: 130 },
-                            { field: 'Precipitation', width: 110 },
-                            { field: 'TempHigh' , displayName:'Higher Temperature', width:150 },
-                            { field: 'TempLow', displayName: "Lower Temperature", width: 150 }
-                        ]
-        };
+        this.selectValue.subscribe(function (val) {
+            if (val.CityId == 0) {
+                dc.RainfallData.Get().done(function (rainfalldataFromServer) {
+                    rainfallData.removeAll();
+                    $.each(rainfalldataFromServer, function (index, c) {
+                        rainfallData.push(c);
+                    });
+                    
+                    
+                });
+                
+            } else {
+                dc.RainfallData.GetRainfallDataByLocation(val.CityId).done(function(locationdataFromServer) {
+                    rainfallData.removeAll();
+                    $.each(locationdataFromServer, function (index, c) {
+                        rainfallData.push(c);
+                    });
+                });
+                
+            };
+        });
+        
+        
+        
 
+            this.gridViewModel = new ko.simpleGrid.viewModel({
+                data: rainfallData,
+                columns: [
+                    { headerText: "Date", rowText: "Date" },   
+                    { headerText: "City", rowText: "City" },
+                    { headerText: "Precipitation", rowText: function (item) { return item.Precipitation.toFixed(2); } },
+                    { headerText: "High", rowText: function (item) { return item.TempHigh; } },
+                    { headerText: "Low", rowText: function (item) { return item.TempLow; } }
+                ],
+                pageSize: 10
+            });
+
+        
         return {
+            GridViewModel: gridViewModel,
             RainfallData: rainfallData,
-            RainfallDatagridOption: gridOptions,
             LocationData: locationData,
             SelectedValue: selectValue
         };
