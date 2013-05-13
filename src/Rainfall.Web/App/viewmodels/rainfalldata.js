@@ -38,7 +38,7 @@ define(["dataContext"], function (dc) {
             };
         });
 
-        gridViewModel = new ko.simpleGrid.viewModel({
+        var gridViewModel = new ko.simpleGrid.viewModel({
             data: rainfallData,
             columns: [
                 { headerText: "Date", rowText: "Date" },
