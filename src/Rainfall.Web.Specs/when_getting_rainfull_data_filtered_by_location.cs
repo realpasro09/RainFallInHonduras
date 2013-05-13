@@ -31,11 +31,14 @@ namespace Rainfall.Web.Specs
                                                                      _mockMappingEngine.Object);
 
                     _locationId = 2;
+                    var wrongCity = new City() {Id = 1};
+                    var correctCity = new City() { Id = 2 };
                     IQueryable<AlmanacDay> almanacDays =
                         new List<AlmanacDay> {new AlmanacDay(), new AlmanacDay()}.AsQueryable();
+
                     _mockRepository.Setup(x => x.Query(ThatHas.AnExpressionFor<AlmanacDay>()
-                                                           .ThatMatches(new AlmanacDay {CityId = 2})
-                                                           .ThatDoesNotMatch(new AlmanacDay {CityId = 1})
+                                                           .ThatMatches(new AlmanacDay { City = correctCity })
+                                                           .ThatDoesNotMatch(new AlmanacDay { City = wrongCity })
                                                            .Build()))
                         .Returns(almanacDays);
 

@@ -11,10 +11,8 @@ namespace Rainfall.Integration
         {
             mapping.Id(x => x.Id);
             mapping.Map(x => x.Date).Not.Nullable();
-            mapping.Map(x => x.CityId).Not.Nullable();
-            mapping.References(x => x.City,"CityId").Cascade.None();
+            mapping.References(x => x.City, "CityId").Cascade.None();
             mapping.HasMany(x => x.AlmanacHourly).KeyColumn("AlmanacDayId").Cascade.All();
-            //mapping.HasOne(x => x.City).ForeignKey("CityId").Cascade.All();
         }
     }
 }

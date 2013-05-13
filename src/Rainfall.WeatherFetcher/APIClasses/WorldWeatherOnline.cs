@@ -20,7 +20,7 @@ namespace Rainfall.WeatherFetcher.APIClasses
         public WorldWeatherOnline(ISession session)
         {
             _session = session;
-            _startLoggingDate = new DateTime(2013,04,01);
+            _startLoggingDate = new DateTime(2013,04,15);
             _baseFreeUrl = "http://api.worldweatheronline.com/free/v1/weather.ashx?";
             _basePremiumUrl = "http://api.worldweatheronline.com/premium/v1/past-weather.ashx?";
         }
@@ -34,7 +34,7 @@ namespace Rainfall.WeatherFetcher.APIClasses
                 while (dateReview.Date != DateTime.Now.Date)
                 {
                     var query = from almanacday in _session.Query<AlmanacDay>() 
-                                    where almanacday.Date.Date == dateReview.Date.Date && almanacday.CityId == city.Id
+                                    where almanacday.Date.Date == dateReview.Date.Date && almanacday.City.Id == city.Id
                                     select almanacday;
                     if (!query.Any())
                     {
@@ -56,10 +56,11 @@ namespace Rainfall.WeatherFetcher.APIClasses
                 using (var tx = _session.BeginTransaction())
                 {
                     var weatherCondition = new AlmanacDay
-                    {   
-                        CityId = city.Id,
+                    {
+                        City = _session.Query<City>().First(x => x.Id == city.Id),
                         Date = Convert.ToDateTime(weatherDataCondition.Date),
                         AlmanacHourly = new AlmanacHourly[] { }
+                        
                     };
                     _session.Save(weatherCondition);
 
@@ -81,7 +82,7 @@ namespace Rainfall.WeatherFetcher.APIClasses
 
         private void SaveCurrentCondition(IRestResponse<RootObject> weatherData, City city)
         {
-            if (weatherData.Data.Data.Current_Condition == null || weatherData.Data == null)
+            if (weatherData.Data == null || weatherData.Data ==null || weatherData.Data.Data.Current_Condition == null)
                 return;
 
             foreach (var weatherDataCondition in weatherData.Data.Data.Current_Condition)
@@ -89,20 +90,21 @@ namespace Rainfall.WeatherFetcher.APIClasses
                 using (var tx = _session.BeginTransaction())
                 {
                      var query = from almanacday in _session.Query<AlmanacDay>()
-                            where almanacday.Date.Date == DateTime.Now.Date.Date && almanacday.CityId == city.Id
+                            where almanacday.Date.Date == DateTime.Now.Date.Date && almanacday.City.Id == city.Id
                             select almanacday;
                     if (!query.Any())
                     {
                         var weatherCondition = new AlmanacDay
                         {
-                            CityId = city.Id,
+                            //CityId = city.Id,
                             Date = DateTime.Now,
+                            City = _session.Query<City>().First(x => x.Id == city.Id),
                             AlmanacHourly = new AlmanacHourly[] { }
                         };
                         _session.Save(weatherCondition);
 
                         query = from almanacday in _session.Query<AlmanacDay>()
-                                where almanacday.Date.Date == DateTime.Now.Date.Date && almanacday.CityId == city.Id
+                                where almanacday.Date.Date == DateTime.Now.Date.Date && almanacday.City.Id == city.Id
                                 select almanacday;
                     }
 
