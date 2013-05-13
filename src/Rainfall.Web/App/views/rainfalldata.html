@@ -1,15 +1,14 @@
 
 ﻿<section >
-﻿    <div>
-﻿        <select data-bind="options: LocationData, value:SelectedValue , optionsText: 'Name'" ></select>
+﻿    
+﻿    <p>Max temperature, <span data-bind="text: MaxTemperature"> </span>!</p>
+﻿    <p>Min temperature, <span data-bind="text: MinTemperature"> </span>!</p>
+﻿    <p>Avg temperature, <span data-bind="text: AvgTemperature"> </span>!</p>
+﻿    <p>Avg precipitation, <span data-bind="text: AvgPrecipitation"> </span>!</p>
+    
+    <div>
+﻿        <select data-bind="options: LocationData, value: SelectedValue, optionsText: 'Name'" ></select>
 ﻿    </div>
-﻿    <span data-bind="text: MaxTemperature"></span>    
-﻿    <span data-bind="text: MinTemperature"></span> 
-﻿    <span data-bind="text: AvgMaxTemperature"></span> 
-﻿    <span data-bind="text: AvgMinTemperature"></span> 
-﻿    <span data-bind="text: MaxPrecipitation"></span> 
-﻿    <span data-bind="text: MinPrecipitation"></span> 
-    <span data-bind="text: AvgPrecipitation"></span> 
 ﻿    <div data-bind='simpleGrid: GridViewModel'> </div>
 ﻿    <div class="modal"></div>﻿
 

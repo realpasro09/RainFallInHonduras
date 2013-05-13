@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web.Mvc;
 using AcklenAvenue.Testing.Moq;
 using AutoMapper;
+using Autofac;
 using Machine.Specifications;
 using Moq;
 using Rainfall.Domain.Entities;
@@ -17,28 +18,36 @@ namespace Rainfall.Web.Specs
     {
         static Mock<IRepository> _mockRepository;
         static Mock<IMappingEngine> _mockMappingEngine;
+        static IAlmanacDayGridSummaryModel _almanacDayGridSummary;
         static RainfallDataController _rainfallController;
         static JsonResult _result;
         static List<AlmanacDayGridItemModel> _almanacDayModels;
+        private static AlmanacDayGridSummaryModel _almanacDayGridSummaryModel;
         static int _locationId;
 
         Establish context =
             () =>
                 {
+                    var containerBuilder = new ContainerBuilder();
+                    IContainer container = new Bootstrapper(containerBuilder).Run();
+                    _almanacDayGridSummary = container.Resolve<IAlmanacDayGridSummaryModel>();
+
                     _mockRepository = new Mock<IRepository>();
                     _mockMappingEngine = new Mock<IMappingEngine>();
                     _rainfallController = new RainfallDataController(_mockRepository.Object,
-                                                                     _mockMappingEngine.Object);
+                                                                     _mockMappingEngine.Object,
+                                                                     _almanacDayGridSummary);
 
                     _locationId = 2;
-                    var wrongCity = new City() {Id = 1};
-                    var correctCity = new City() { Id = 2 };
+                    var wrongLocation = new City() {Id = 1};
+                    var correctLocation = new City() { Id = 2 };
+
                     IQueryable<AlmanacDay> almanacDays =
                         new List<AlmanacDay> {new AlmanacDay(), new AlmanacDay()}.AsQueryable();
 
                     _mockRepository.Setup(x => x.Query(ThatHas.AnExpressionFor<AlmanacDay>()
-                                                           .ThatMatches(new AlmanacDay { City = correctCity })
-                                                           .ThatDoesNotMatch(new AlmanacDay { City = wrongCity })
+                                                           .ThatMatches(new AlmanacDay { City = correctLocation })
+                                                           .ThatDoesNotMatch(new AlmanacDay { City = wrongLocation })
                                                            .Build()))
                         .Returns(almanacDays);
 
@@ -51,11 +60,16 @@ namespace Rainfall.Web.Specs
                         x =>
                         x.Map<IEnumerable<AlmanacDay>, IEnumerable<AlmanacDayGridItemModel>>(almanacDays))
                         .Returns(_almanacDayModels);
+
+                    _almanacDayGridSummaryModel = new AlmanacDayGridSummaryModel()
+                        {
+                            AlmanacDays = _almanacDayModels
+                        };
                 };
 
 
         Because of = () => _result = _rainfallController.GetRainfallDataByLocation(_locationId);
 
-        It should_do_return_filtered_data_by_location = () => _result.Data.ShouldBeLike(_almanacDayModels);
+        It should_do_return_filtered_data_by_location = () => _result.Data.ShouldBeLike(_almanacDayGridSummaryModel);
     }
 }

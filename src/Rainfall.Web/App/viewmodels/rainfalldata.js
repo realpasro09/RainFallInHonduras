@@ -6,10 +6,7 @@ define(["dataContext"], function (dc) {
             selectValue = ko.observable(),
             maxTemperature = ko.observable(0),
             minTemperature = ko.observable(0),
-            avgMaxTemperature = ko.observable(0),
-            avgMinTemperature = ko.observable(0),
-            maxPrecipitation = ko.observable(0),
-            minPrecipitacion = ko.observable(0),
+            avgTemperature = ko.observable(0),
             avgPrecipitacion = ko.observable(0);
         
         $(document).ajaxStart(function () {
@@ -32,13 +29,11 @@ define(["dataContext"], function (dc) {
                     $.each(rainfalldataFromServer.AlmanacDays, function (index, c) {
                         rainfallData.push(c);
                     });
-                    maxTemperature = rainfalldataFromServer.MaxTemperature;
-                    minTemperature = rainfalldataFromServer.MinTemperature;
-                    avgMaxTemperature = rainfalldataFromServer.AvgMaxTemperature;
-                    avgMinTemperature = rainfalldataFromServer.AvgMinTemperature;
-                    maxPrecipitation = rainfalldataFromServer.MaxPrecipitation;
-                    minPrecipitacion = rainfalldataFromServer.MinPrecipitation;
-                    avgPrecipitacion = rainfalldataFromServer.AvgPrecipitation;
+                    maxTemperature(rainfalldataFromServer.MaxTemperature);
+                    minTemperature(rainfalldataFromServer.MinTemperature);
+                    avgTemperature(rainfalldataFromServer.AvgTemperature.toFixed(2));
+                    avgPrecipitacion(rainfalldataFromServer.AvgPrecipitation.toFixed(2));
+                    
                 });
 
             } else {
@@ -47,13 +42,10 @@ define(["dataContext"], function (dc) {
                     $.each(locationdataFromServer.AlmanacDays, function (index, c) {
                         rainfallData.push(c);
                     });
-                    maxTemperature = locationdataFromServer.MaxTemperature;
-                    minTemperature = locationdataFromServer.MinTemperature;
-                    avgMaxTemperature = locationdataFromServer.AvgMaxTemperature;
-                    avgMinTemperature = locationdataFromServer.AvgMinTemperature;
-                    maxPrecipitation = locationdataFromServer.MaxPrecipitation;
-                    minPrecipitacion = locationdataFromServer.MinPrecipitation;
-                    avgPrecipitacion = locationdataFromServer.AvgPrecipitation;
+                    maxTemperature(locationdataFromServer.MaxTemperature);
+                    minTemperature(locationdataFromServer.MinTemperature);
+                    avgTemperature(locationdataFromServer.AvgTemperature.toFixed(2));
+                    avgPrecipitacion(locationdataFromServer.AvgPrecipitation.toFixed(2));
                 });
 
             };
@@ -79,10 +71,7 @@ define(["dataContext"], function (dc) {
             SelectedValue: selectValue,
             MaxTemperature: maxTemperature,
             MinTemperature: minTemperature,
-            AvgMaxTemperature : avgMaxTemperature,
-            AvgMinTemperature :avgMinTemperature,
-            MaxPrecipitation : maxPrecipitation,
-            MinPrecipitation : minPrecipitacion,
+            AvgTemperature :avgTemperature,
             AvgPrecipitation : avgPrecipitacion
         };
     }();

@@ -139,7 +139,8 @@
     <Compile Include="Controllers\RainfallDataController.cs" />
     <Compile Include="Models\AlmanacDayGridItemModel.cs" />
     <Compile Include="Models\CityFilterLocationModel.cs" />
-    <Compile Include="Models\AlmanacDayGridSummary.cs" />
+    <Compile Include="Models\AlmanacDayGridSummaryModel.cs" />
+    <Compile Include="Models\IAlmanacDayGridSummaryModel.cs" />
     <Compile Include="RegisterInjectedDependencies.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="ConfigureDatabaseIntegration.cs" />
