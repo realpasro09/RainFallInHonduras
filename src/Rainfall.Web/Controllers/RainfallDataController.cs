@@ -37,7 +37,7 @@ namespace Rainfall.Web.Controllers
 
         public JsonResult GetRainfallDataByLocation(int locationId)
         {
-            var almanacDays = _repository.Query<AlmanacDay>(x => x.CityId == locationId);
+            var almanacDays = _repository.Query<AlmanacDay>(x => x.City.Id == locationId);
             var summary = ReturnRainfallInformationSummary(almanacDays);
             var mappedAlmanacDays =
                 _mappingEngine.Map<IEnumerable<AlmanacDay>, IEnumerable<AlmanacDayGridItemModel>>(almanacDays);
