@@ -41,9 +41,12 @@ namespace Rainfall.Web.Controllers
             var mappedAlmanacDays =
                 _mappingEngine.Map<IEnumerable<AlmanacDay>, IEnumerable<AlmanacDayGridItemModel>>(almanacDays);
 
+<<<<<<< HEAD
             var almanacDayGridSummary = new AlmanacDayGridSummaryModel { AlmanacDays = mappedAlmanacDays };
+=======
+            _almanacDayGridSummary.AlmanacDays = mappedAlmanacDays;
 
-            return Json(almanacDayGridSummary, JsonRequestBehavior.AllowGet);
+            return Json(_almanacDayGridSummary, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetRainfallData(int locationId, int periodId)
@@ -97,8 +100,9 @@ namespace Rainfall.Web.Controllers
                 _mappingEngine.Map<IEnumerable<AlmanacDay>, IEnumerable<AlmanacDayGridItemModel>>(almanacDays);
 
             _almanacDayGridSummary.AlmanacDays = mappedAlmanacDays;
+>>>>>>> implement the filtering by period
 
-            return Json(_almanacDayGridSummary, JsonRequestBehavior.AllowGet);
+            return Json(almanacDayGridSummary, JsonRequestBehavior.AllowGet);
         }
     }
 }

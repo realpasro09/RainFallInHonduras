@@ -20,7 +20,7 @@ namespace Rainfall.WeatherFetcher.APIClasses
         public WorldWeatherOnline(ISession session)
         {
             _session = session;
-            _startLoggingDate = new DateTime(2013,04,15);
+            _startLoggingDate = new DateTime(2013,01,01);
             _baseFreeUrl = "http://api.worldweatheronline.com/free/v1/weather.ashx?";
             _basePremiumUrl = "http://api.worldweatheronline.com/premium/v1/past-weather.ashx?";
         }
@@ -82,7 +82,7 @@ namespace Rainfall.WeatherFetcher.APIClasses
 
         private void SaveCurrentCondition(IRestResponse<RootObject> weatherData, City city)
         {
-            if (weatherData.Data == null || weatherData.Data ==null || weatherData.Data.Data.Current_Condition == null)
+            if (weatherData.Data == null || weatherData.Data.Data ==null || weatherData.Data.Data.Current_Condition == null)
                 return;
 
             foreach (var weatherDataCondition in weatherData.Data.Data.Current_Condition)

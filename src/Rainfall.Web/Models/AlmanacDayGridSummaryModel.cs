@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Rainfall.Web.Models
@@ -10,7 +11,7 @@ namespace Rainfall.Web.Models
         {
             get
             {
-                return AlmanacDays.Max(x => x.TempHigh);
+                return !AlmanacDays.Any() ? 0 : AlmanacDays.Max(x => x.TempHigh);
             }
         }
 
@@ -18,24 +19,28 @@ namespace Rainfall.Web.Models
         {
             get
             {
-                return AlmanacDays.Min(x => x.TempLow);
+                return !AlmanacDays.Any() ? 0 : AlmanacDays.Min(x => x.TempLow);
             }
         }
         public double AvgTemperature
         {
             get
             {
+                if (!AlmanacDays.Any())
+                    return 0;
+
                 var highList = AlmanacDays.Select(x=>x.TempHigh).ToList();
                 var lowList = AlmanacDays.Select(x=>x.TempLow).ToList();
                 var generalList = highList.Concat(lowList);
                 return generalList.Average();
+                
             }
         }
         public double AvgPrecipitation
         {
             get
             {
-                return AlmanacDays.Average(x => x.Precipitation);
+                return !AlmanacDays.Any() ? 0 : AlmanacDays.Average(x => x.Precipitation);
             }
         }
     }

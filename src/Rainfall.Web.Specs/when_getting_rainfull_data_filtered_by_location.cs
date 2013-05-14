@@ -21,7 +21,7 @@ namespace Rainfall.Web.Specs
         static RainfallDataController _rainfallController;
         static JsonResult _result;
         static List<AlmanacDayGridItemModel> _almanacDayModels;
-        private static AlmanacDayGridSummaryModel _almanacDayGridSummaryModel;
+        static AlmanacDayGridSummaryModel _almanacDayGridSummaryModel;
         static int _locationId;
 
         Establish context =
