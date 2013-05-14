@@ -17,11 +17,6 @@ namespace Rainfall.Web
                 return container =>
                            {
                                container.RegisterType<Repository>().As<IRepository>();
-                               container.RegisterType<AlmanacDayGridSummaryModel>().As<IAlmanacDayGridSummaryModel>();
-                               //container.RegisterType<AccountInputValidator>().As<IAccountInputValidator>();
-                               //container.RegisterInstance(Mapper.Engine).As<IMappingEngine>();
-                               //container.RegisterType<WishlistValidator>().As<IWishlistValidator>();
-                               //container.RegisterType<WishlistItemValidator>().As<IWishlistItemValidator>();
                            };
             }
         }

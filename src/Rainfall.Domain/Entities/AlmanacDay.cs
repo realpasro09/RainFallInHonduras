@@ -8,7 +8,6 @@ namespace Rainfall.Domain.Entities
     {
         public virtual int Id { get; set; }
         public virtual DateTime Date { get; set; }
-        //public virtual int CityId { get; set; }
         public virtual City City { get; set; }
         public virtual IEnumerable<AlmanacHourly> AlmanacHourly { get; set; }
         public virtual double Get24HrsTempHigh()

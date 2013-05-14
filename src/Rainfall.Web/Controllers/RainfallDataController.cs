@@ -15,13 +15,11 @@ namespace Rainfall.Web.Controllers
     {
         private readonly IRepository _repository;
         private readonly IMappingEngine _mappingEngine;
-        private readonly IAlmanacDayGridSummaryModel _almanacDayGridSummary;
 
-        public RainfallDataController(IRepository repository, IMappingEngine mappingEngine, IAlmanacDayGridSummaryModel almanacDayGridSummary)
+        public RainfallDataController(IRepository repository, IMappingEngine mappingEngine)
         {
             _repository = repository;
             _mappingEngine = mappingEngine;
-            _almanacDayGridSummary = almanacDayGridSummary;
         }
 
         public JsonResult Get()
@@ -32,9 +30,9 @@ namespace Rainfall.Web.Controllers
             var mappedAlmanacDays =
                 _mappingEngine.Map<IEnumerable<AlmanacDay>, IEnumerable<AlmanacDayGridItemModel>>(almanacDays);
 
-            _almanacDayGridSummary.AlmanacDays = mappedAlmanacDays;
+            var almanacDayGridSummary = new AlmanacDayGridSummaryModel {AlmanacDays = mappedAlmanacDays};
 
-            return Json(_almanacDayGridSummary, JsonRequestBehavior.AllowGet);
+            return Json(almanacDayGridSummary, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetRainfallDataByLocation(int locationId)
@@ -43,10 +41,9 @@ namespace Rainfall.Web.Controllers
             var mappedAlmanacDays =
                 _mappingEngine.Map<IEnumerable<AlmanacDay>, IEnumerable<AlmanacDayGridItemModel>>(almanacDays);
 
-            var almanacDayGridItemModels = mappedAlmanacDays as IList<AlmanacDayGridItemModel> ?? mappedAlmanacDays.ToList();
-            _almanacDayGridSummary.AlmanacDays = almanacDayGridItemModels;
+            var almanacDayGridSummary = new AlmanacDayGridSummaryModel { AlmanacDays = mappedAlmanacDays };
 
-            return Json(_almanacDayGridSummary, JsonRequestBehavior.AllowGet);
+            return Json(almanacDayGridSummary, JsonRequestBehavior.AllowGet);
         }
     }
 }

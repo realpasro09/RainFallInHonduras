@@ -18,7 +18,6 @@ namespace Rainfall.Web.Specs
     {
         static Mock<IRepository> _mockRepository;
         static Mock<IMappingEngine> _mockMappingEngine;
-        static IAlmanacDayGridSummaryModel _almanacDayGridSummary;
         static RainfallDataController _rainfallController;
         static JsonResult _result;
         static List<AlmanacDayGridItemModel> _almanacDayModels;
@@ -28,15 +27,10 @@ namespace Rainfall.Web.Specs
         Establish context =
             () =>
                 {
-                    var containerBuilder = new ContainerBuilder();
-                    IContainer container = new Bootstrapper(containerBuilder).Run();
-                    _almanacDayGridSummary = container.Resolve<IAlmanacDayGridSummaryModel>();
-
                     _mockRepository = new Mock<IRepository>();
                     _mockMappingEngine = new Mock<IMappingEngine>();
                     _rainfallController = new RainfallDataController(_mockRepository.Object,
-                                                                     _mockMappingEngine.Object,
-                                                                     _almanacDayGridSummary);
+                                                                     _mockMappingEngine.Object);
 
                     _locationId = 2;
                     var wrongLocation = new City() {Id = 1};

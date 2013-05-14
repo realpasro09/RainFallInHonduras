@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Rainfall.Web.Models
 {
-    public class AlmanacDayGridSummaryModel:IAlmanacDayGridSummaryModel
+    public class AlmanacDayGridSummaryModel
     {
         public IEnumerable<AlmanacDayGridItemModel> AlmanacDays { get; set; }
         public double MaxTemperature
