@@ -141,8 +141,12 @@
     <Compile Include="Models\AlmanacDayGridItemModel.cs" />
     <Compile Include="Models\CityFilterLocationModel.cs" />
     <Compile Include="Models\AlmanacDayGridSummaryModel.cs" />
+<<<<<<< HEAD
+=======
+    <Compile Include="Models\IAlmanacDayGridSummaryModel.cs" />
     <Compile Include="Models\PeriodFilterModel.cs" />
     <Compile Include="Models\PeriodType.cs" />
+>>>>>>> implement the filtering by period
     <Compile Include="RegisterInjectedDependencies.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="ConfigureDatabaseIntegration.cs" />
@@ -388,6 +392,9 @@
     <Content Include="local.config">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="local.config.default">
+      <SubType>Designer</SubType>
     </Content>
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
