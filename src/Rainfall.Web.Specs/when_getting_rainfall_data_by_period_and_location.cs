@@ -21,7 +21,6 @@ namespace Rainfall.Web.Specs
         static JsonResult _result;
         static Mock<IRepository> _mockRepository;
         static Mock<IMappingEngine> _mockMappingEngine;
-        static IAlmanacDayGridSummaryModel _almanacDayGridSummary;
         static RainfallDataController _rainfallController;
         static AlmanacDayGridSummaryModel _almanacDayGridSummaryModelToday;
         static List<AlmanacDayGridItemModel> _almanacDayGridItemModels;
@@ -30,15 +29,10 @@ namespace Rainfall.Web.Specs
         private Establish context = 
             () =>
                 {
-                    var containerBuilder = new ContainerBuilder();
-                    IContainer container = new Bootstrapper(containerBuilder).Run();
-                    _almanacDayGridSummary = container.Resolve<IAlmanacDayGridSummaryModel>();
-
                     _mockRepository = new Mock<IRepository>();
                     _mockMappingEngine = new Mock<IMappingEngine>();
                     _rainfallController = new RainfallDataController(_mockRepository.Object,
-                                                                     _mockMappingEngine.Object,
-                                                                     _almanacDayGridSummary);
+                                                                     _mockMappingEngine.Object);
 
                     _locationId = 2;
                     var wrongLocation = new City() {Id = 1};
@@ -55,38 +49,6 @@ namespace Rainfall.Web.Specs
                             new AlmanacDayGridItemModel(),
                             new AlmanacDayGridItemModel()
                         };
-
-                    ////Today
-                    //_mockRepository.Setup(x => x.Query(ThatHas.AnExpressionFor<AlmanacDay>()
-                    //                                       .ThatMatches(new AlmanacDay { City = correctLocation, Date = dateTime })
-                    //                                       .ThatDoesNotMatch(new AlmanacDay { City = wrongLocation, Date = dateTime })
-                    //                                       .Build()))
-                    //    .Returns(almancDays);
-
-                    ////Yesterday
-                    //_mockRepository.Setup(x => x.Query(ThatHas.AnExpressionFor<AlmanacDay>()
-                    //                                       .ThatMatches(new AlmanacDay { City = correctLocation, Date = dateTime.AddDays(-1) })
-                    //                                       .ThatDoesNotMatch(new AlmanacDay { City = wrongLocation, Date = dateTime.AddDays(-1) })
-                    //                                       .Build()))
-                    //    .Returns(almancDays);
-
-                    ////LastWeek
-                    //_mockRepository.Setup(x => x.Query(ThatHas.AnExpressionFor<AlmanacDay>()
-                    //                                       .ThatMatches(new AlmanacDay { City = correctLocation, Date = dateTime.AddDays(-7) })
-                    //                                       .ThatDoesNotMatch(new AlmanacDay { City = correctLocation, Date = dateTime.AddDays(-8) },
-                    //                                                         new AlmanacDay { City = correctLocation, Date = dateTime.AddDays(-9) },
-                    //                                                         new AlmanacDay { City = wrongLocation, Date = dateTime.AddDays(-8) })
-                    //                                       .Build()))
-                    //    .Returns(almancDays);
-
-                    ////LastMonth
-                    //_mockRepository.Setup(x => x.Query(ThatHas.AnExpressionFor<AlmanacDay>()
-                    //                                       .ThatMatches(new AlmanacDay { City = correctLocation, Date = dateTime.AddDays(-30) })
-                    //                                       .ThatDoesNotMatch(new AlmanacDay { City = correctLocation, Date = dateTime.AddDays(-31) },
-                    //                                                         new AlmanacDay { City = correctLocation, Date = dateTime.AddDays(-32) },
-                    //                                                         new AlmanacDay { City = wrongLocation, Date = dateTime.AddDays(-31) })
-                    //                                       .Build()))
-                    //    .Returns(almancDays);
 
                     //LastYear
                     _mockRepository.Setup(x => x.Query(ThatHas.AnExpressionFor<AlmanacDay>()

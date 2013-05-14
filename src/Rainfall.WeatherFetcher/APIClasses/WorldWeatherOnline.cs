@@ -96,7 +96,6 @@ namespace Rainfall.WeatherFetcher.APIClasses
                     {
                         var weatherCondition = new AlmanacDay
                         {
-                            //CityId = city.Id,
                             Date = DateTime.Now,
                             City = _session.Query<City>().First(x => x.Id == city.Id),
                             AlmanacHourly = new AlmanacHourly[] { }

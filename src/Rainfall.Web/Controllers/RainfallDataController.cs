@@ -96,9 +96,9 @@ namespace Rainfall.Web.Controllers
             var mappedAlmanacDays =
                 _mappingEngine.Map<IEnumerable<AlmanacDay>, IEnumerable<AlmanacDayGridItemModel>>(almanacDays);
 
-            _almanacDayGridSummary.AlmanacDays = mappedAlmanacDays;
+            var almanacDayGridSummary = new AlmanacDayGridSummaryModel { AlmanacDays = mappedAlmanacDays };
 
-            return Json(_almanacDayGridSummary, JsonRequestBehavior.AllowGet);
+            return Json(almanacDayGridSummary, JsonRequestBehavior.AllowGet);
         }
     }
 }
