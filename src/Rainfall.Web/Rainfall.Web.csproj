@@ -161,6 +161,7 @@
     <Compile Include="Models\AlmanacDayGridSummaryModel.cs" />
     <Compile Include="Models\PeriodFilterModel.cs" />
     <Compile Include="Models\PeriodType.cs" />
+    <Compile Include="Models\RainfallSummaryModel.cs" />
     <Compile Include="Models\TableParameter.cs" />
     <Compile Include="RegisterInjectedDependencies.cs" />
     <Compile Include="Controllers\HomeController.cs" />
