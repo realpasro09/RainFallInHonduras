@@ -57,7 +57,7 @@ namespace Rainfall.Web.Specs
 
                     _almanacDayGridSummaryModel = new AlmanacDayGridSummaryModel()
                         {
-                            AlmanacDays = _almanacDayModels
+                            aaData = _almanacDayModels
                         };
                 };
 
