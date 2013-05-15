@@ -42,7 +42,6 @@ define(["dataContext"], function (dc) {
             minTemperature = ko.observable(0),
             avgTemperature = ko.observable(0),
             avgPrecipitacion = ko.observable(0);
-
         dc.LocationData.Get().done(function (locationdataFromServer) {
             $.each(locationdataFromServer, function (index, c) {
                 locationData.push(c);
