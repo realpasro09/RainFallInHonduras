@@ -1,5 +1,35 @@
 define(["dataContext"], function (dc) {
 
+
+    /* The dataTable binding */
+    (function ($) {
+        ko.bindingHandlers.dataTable = {
+            init: function (element, valueAccessor) {
+                var binding = ko.utils.unwrapObservable(valueAccessor());
+
+                // If the binding is an object with an options field,
+                // initialise the dataTable with those options. 
+                if (binding.options) {
+                    $(element).dataTable(binding.options);
+                }
+            },
+            update: function (element, valueAccessor) {
+                var binding = ko.utils.unwrapObservable(valueAccessor());
+
+                // If the binding isn't an object, turn it into one. 
+                if (!binding.data) {
+                    binding = { data: valueAccessor() };
+                }
+
+                // Clear table
+                $(element).dataTable().fnClearTable();
+
+                // Rebuild table from data source specified in binding
+                $(element).dataTable().fnAddData(binding.data());
+            }
+        };
+    })(jQuery);
+    
     var viewModel = function () {
         var rainfallData = ko.observableArray([]),
             locationData = ko.observableArray([]),
@@ -12,13 +42,6 @@ define(["dataContext"], function (dc) {
             minTemperature = ko.observable(0),
             avgTemperature = ko.observable(0),
             avgPrecipitacion = ko.observable(0);
-        
-        $(document).ajaxStart(function () {
-            $("body").addClass("loading");
-        });
-        $(document).ajaxStop(function () {
-            $("body").removeClass("loading");
-        });
 
         dc.LocationData.Get().done(function (locationdataFromServer) {
             $.each(locationdataFromServer, function (index, c) {
@@ -32,53 +55,51 @@ define(["dataContext"], function (dc) {
             });
         });
         
+        
         selectedLocation.subscribe(function (val) {
             locationValue(val.CityId);
-            dc.RainfallData.GetRainfallData(locationValue, periodValue)
-                .done(function(rainfalldataFromServer) {
-                    rainfallData.removeAll();
-                    $.each(rainfalldataFromServer.AlmanacDays, function(index, c) {
-                        rainfallData.push(c);
-                    });
-                    maxTemperature(rainfalldataFromServer.MaxTemperature);
-                    minTemperature(rainfalldataFromServer.MinTemperature);
-                    avgTemperature(rainfalldataFromServer.AvgTemperature.toFixed(2));
-                    avgPrecipitacion(rainfalldataFromServer.AvgPrecipitation.toFixed(2));
-                });
-            gridViewModel.currentPageIndex(0);
         });
         
         selectedPeriod.subscribe(function (val) {
             periodValue(val.PeriodId);
-            dc.RainfallData.GetRainfallData(locationValue, periodValue)
-                .done(function (rainfalldataFromServer) {
-                    rainfallData.removeAll();
-                    $.each(rainfalldataFromServer.AlmanacDays, function (index, c) {
-                        rainfallData.push(c);
-                    });
-                    maxTemperature(rainfalldataFromServer.MaxTemperature);
-                    minTemperature(rainfalldataFromServer.MinTemperature);
-                    avgTemperature(rainfalldataFromServer.AvgTemperature.toFixed(2));
-                    avgPrecipitacion(rainfalldataFromServer.AvgPrecipitation.toFixed(2));
-                });
-            gridViewModel.currentPageIndex(0);
         });
-
-        var gridViewModel = new ko.simpleGrid.viewModel({
+        
+        var gridDataTable = {
             data: rainfallData,
-            columns: [
-                { headerText: "Date", rowText: "Date" },
-                { headerText: "City", rowText: "City" },
-                { headerText: "Precipitation", rowText: function (item) { return item.Precipitation.toFixed(2); } },
-                { headerText: "High", rowText: function (item) { return item.TempHigh; } },
-                { headerText: "Low", rowText: function (item) { return item.TempLow; } }
-            ],
-            pageSize: 10
-        });
-
+            options:
+            {
+                bServerSide: true,  
+                bProcessing: true,
+                sPaginationType: "full_numbers",
+                sAjaxSource: "/RainfallData/GetRainfallData",
+                fnServerData: function(sSource, aoData, fnCallback, oSettings) {
+                    oSettings.jqXHR = $.ajax({
+                            "dataType": 'json',
+                            "type": "POST",
+                            "url": sSource,
+                            "data": aoData,
+                            "success": fnCallback
+                        }
+                    );
+                },
+                fnServerParams: function ( aoData )   
+                {  
+                    aoData.push({ name: "locationId", value: locationValue() });
+                    aoData.push({ name: "periodId", value: periodValue() });
+                },
+                aoColumns:
+                [
+                    { sTitle: 'Date', mData: 'Date' },
+                    { sTitle: 'City', mData: 'City' },
+                    { sTitle: 'High Temp', mData: 'TempHigh' },
+                    { sTitle: 'Low Temp', mData: 'TempLow' },
+                    { sTitle: 'Precipitation', mData: 'Precipitation' }
+                ]
+            }
+        };
 
         return {
-            GridViewModel: gridViewModel,
+            GridViewModel: gridDataTable,
             RainfallData: rainfallData,
             LocationData: locationData,
             PeriodData: periodData,

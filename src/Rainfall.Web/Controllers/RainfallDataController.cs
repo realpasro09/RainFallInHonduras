@@ -30,7 +30,7 @@ namespace Rainfall.Web.Controllers
             var mappedAlmanacDays =
                 _mappingEngine.Map<IEnumerable<AlmanacDay>, IEnumerable<AlmanacDayGridItemModel>>(almanacDays);
 
-            var almanacDayGridSummary = new AlmanacDayGridSummaryModel {AlmanacDays = mappedAlmanacDays};
+            var almanacDayGridSummary = new AlmanacDayGridSummaryModel {aaData = mappedAlmanacDays};
 
             return Json(almanacDayGridSummary, JsonRequestBehavior.AllowGet);
         }
@@ -41,48 +41,74 @@ namespace Rainfall.Web.Controllers
             var mappedAlmanacDays =
                 _mappingEngine.Map<IEnumerable<AlmanacDay>, IEnumerable<AlmanacDayGridItemModel>>(almanacDays);
 
-            var almanacDayGridSummary = new AlmanacDayGridSummaryModel { AlmanacDays = mappedAlmanacDays };
+            var almanacDayGridSummary = new AlmanacDayGridSummaryModel { aaData = mappedAlmanacDays };
 
             return Json(almanacDayGridSummary, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetRainfallData(int locationId, int periodId)
+        public JsonResult GetRainfallData(int locationId, int periodId, TableParameter param)
         {
-            var daysToAdd = 0;
+            var daysfrom = 0;
+            var daysTo = 0;
 
             switch ((PeriodType)periodId)
             {
                 case PeriodType.Today:
-                    daysToAdd = 0;
+                    daysfrom = 0;
+                    daysTo = 0;
                     break;
                 case PeriodType.Yesterday:
-                    daysToAdd = -1;
+                    daysfrom = -1;
+                    daysTo = -1;
                     break;
                 case PeriodType.LastWeek:
-                    daysToAdd = -7;
+                    daysfrom = -7;
+                    daysTo = -1;
                     break;
                 case PeriodType.LastMonth:
-                    daysToAdd = -30;
+                    daysfrom = -30;
+                    daysTo = -1;
                     break;
                 case PeriodType.LastYear:
-                    daysToAdd = -365;
+                    daysfrom = -365;
+                    daysTo = -1;
                     break;
                 default:
-                    daysToAdd = 0;
+                    daysfrom = 0;
+                    daysTo = 0;
                     break;
             }
 
+            var totalRecords = locationId != 0
+                                ? _repository.Query<AlmanacDay>(
+                                              x => x.Date.Date >= SystemDateTime.Now().AddDays(daysfrom).Date
+                                                  && x.Date.Date <= SystemDateTime.Now().AddDays(daysTo).Date
+                                                  && x.City.Id == locationId).Count()
+                                : _repository.Query<AlmanacDay>(
+                                              x => x.Date.Date >= SystemDateTime.Now().AddDays(daysfrom).Date
+                                                  && x.Date.Date <= SystemDateTime.Now().AddDays(daysTo).Date).Count();
+
             IEnumerable<AlmanacDay> almanacDays = locationId != 0
                                           ? _repository.Query<AlmanacDay>(
-                                              x => x.Date.Date >= SystemDateTime.Now().AddDays(daysToAdd).Date && x.City.Id == locationId)
-                                                       .OrderByDescending(x => x.Date)
-                                          : _repository.Query<AlmanacDay>(x => x.Date.Date >= SystemDateTime.Now().AddDays(daysToAdd).Date)
-                                                       .OrderByDescending(x => x.Date);
+                                              x => x.Date.Date >= SystemDateTime.Now().AddDays(daysfrom).Date
+                                                  && x.Date.Date <= SystemDateTime.Now().AddDays(daysTo).Date 
+                                                  && x.City.Id == locationId)
+                                                       .OrderByDescending(x => x.Date).Skip(param.iDisplayStart).Take(param.iDisplayLength)
+                                          : _repository.Query<AlmanacDay>(
+                                              x => x.Date.Date >= SystemDateTime.Now().AddDays(daysfrom).Date
+                                                  && x.Date.Date <= SystemDateTime.Now().AddDays(daysTo).Date)
+                                                       .OrderByDescending(x => x.Date).Skip(param.iDisplayStart).Take(param.iDisplayLength);
 
             var mappedAlmanacDays =
                 _mappingEngine.Map<IEnumerable<AlmanacDay>, IEnumerable<AlmanacDayGridItemModel>>(almanacDays);
 
-            var almanacDayGridSummary = new AlmanacDayGridSummaryModel { AlmanacDays = mappedAlmanacDays };
+            var almanacDayGridSummary = new AlmanacDayGridSummaryModel
+                {
+                    sEcho = param.sEcho,
+                    aaData = mappedAlmanacDays,
+                    iTotalRecords = totalRecords,
+                    iTotalDisplayRecords = totalRecords
+                };
 
             return Json(almanacDayGridSummary, JsonRequestBehavior.AllowGet);
         }

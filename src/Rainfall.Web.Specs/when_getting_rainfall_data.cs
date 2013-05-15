@@ -50,7 +50,7 @@ namespace Rainfall.Web.Specs
                         x => x.Map<IEnumerable<AlmanacDay>, IEnumerable<AlmanacDayGridItemModel>>(almanacDays))
                         .Returns(_almanacDayGridItemModels);
 
-                    _almanacDayGridSummaryModel = new AlmanacDayGridSummaryModel() { AlmanacDays = _almanacDayGridItemModels };
+                    _almanacDayGridSummaryModel = new AlmanacDayGridSummaryModel() { aaData = _almanacDayGridItemModels };
                 };
 
         Because of = () => _result = _rainfallController.Get();
