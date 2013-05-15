@@ -1,0 +1,51 @@
+
+﻿<section >
+    <br/>
+    <b>Temperature: </b> <br/> 
+    ﻿Min: <span data-bind="text: MinTemperature"> </span>!
+    ﻿Max: <span data-bind="text: MaxTemperature"> </span>!
+    ﻿Avg: <span data-bind="text: AvgTemperature"> </span>!
+    ﻿<br/>
+    ﻿<b>Precipitation: </b> <br/>
+    ﻿Avg: <span data-bind="text: AvgPrecipitation"> </span>! 
+﻿    <br/>
+    <br/>
+<<<<<<< HEAD
+﻿    <select id="selectLocation" data-bind="options: LocationData, value: SelectedLocation, optionsText: 'Name'" ></select>
+﻿    <select id="selectPeriod" data-bind="options: PeriodData, value: SelectedPeriod, optionsText: 'Name'" ></select>
+    
+﻿    <table id="myGrid" data-bind="dataTable: GridViewModel" />
+
+=======
+﻿    <select data-bind="options: LocationData, value: SelectedLocation, optionsText: 'Name'" ></select>
+﻿    <select data-bind="options: PeriodData, value: SelectedPeriod, optionsText: 'Name'" ></select>
+
+﻿    <!--<div data-bind='simpleGrid: GridViewModel'> </div>-->
+    
+    <table id="tabla">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>City</th>
+            <th>Precipitation</th>
+            <th>High</th>
+            <th>Low</th>
+        </tr>
+    </thead>
+    <tbody data-bind="foreach: RainfallData">
+        <tr>
+            <td data-bind="text:Date"></td>
+            <td data-bind="text:City"></td>
+            <td data-bind="text:Precipitation"></td>
+            <td data-bind="text:TempHigh"></td>
+            <td data-bind="text:TempLow"></td>
+        </tr>
+    </tbody>
+</table>
+﻿    
+﻿    
+﻿    <div class="modal"></div>﻿
+    
+>>>>>>> Side Server paging
+﻿</section>
+
