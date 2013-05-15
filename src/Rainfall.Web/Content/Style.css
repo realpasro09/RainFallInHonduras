@@ -29,3 +29,16 @@ body.loading {
 body.loading .modal {
     display: block;
 }
+
+table {
+    border: 1px solid #000;
+}
+thead tr {
+    background-color: #bbb;
+}
+tbody tr {
+    background-color: #eee;
+}
+tbody tr:nth-child(even) {
+    background-color: #ddd;
+}

@@ -10,11 +10,10 @@
     ﻿Avg: <span data-bind="text: AvgPrecipitation"> </span>! 
 ﻿    <br/>
     <br/>
-﻿    <select data-bind="options: LocationData, value: SelectedLocation, optionsText: 'Name'" ></select>
-﻿    <select data-bind="options: PeriodData, value: SelectedPeriod, optionsText: 'Name'" ></select>
-
-﻿    <div data-bind='simpleGrid: GridViewModel'> </div>
-﻿    <div class="modal"></div>﻿
+﻿    <select id="selectLocation" data-bind="options: LocationData, value: SelectedLocation, optionsText: 'Name'" ></select>
+﻿    <select id="selectPeriod" data-bind="options: PeriodData, value: SelectedPeriod, optionsText: 'Name'" ></select>
+    
+﻿    <table id="myGrid" data-bind="dataTable: GridViewModel" />
 
 ﻿</section>
 
