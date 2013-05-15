@@ -13,8 +13,31 @@
 ﻿    <select data-bind="options: LocationData, value: SelectedLocation, optionsText: 'Name'" ></select>
 ﻿    <select data-bind="options: PeriodData, value: SelectedPeriod, optionsText: 'Name'" ></select>
 
-﻿    <div data-bind='simpleGrid: GridViewModel'> </div>
+﻿    <!--<div data-bind='simpleGrid: GridViewModel'> </div>-->
+    
+    <table id="tabla">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>City</th>
+            <th>Precipitation</th>
+            <th>High</th>
+            <th>Low</th>
+        </tr>
+    </thead>
+    <tbody data-bind="foreach: RainfallData">
+        <tr>
+            <td data-bind="text:Date"></td>
+            <td data-bind="text:City"></td>
+            <td data-bind="text:Precipitation"></td>
+            <td data-bind="text:TempHigh"></td>
+            <td data-bind="text:TempLow"></td>
+        </tr>
+    </tbody>
+</table>
+﻿    
+﻿    
 ﻿    <div class="modal"></div>﻿
-
+    
 ﻿</section>
 

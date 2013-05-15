@@ -19,7 +19,6 @@ define(["dataContext"], function (dc) {
         $(document).ajaxStop(function () {
             $("body").removeClass("loading");
         });
-
         dc.LocationData.Get().done(function (locationdataFromServer) {
             $.each(locationdataFromServer, function (index, c) {
                 locationData.push(c);

@@ -36,9 +36,11 @@
         
         <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.tmpl.js")"></script>
         <script type="text/javascript" src="@Url.Content("~/Scripts/knockout.simpleGrid.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/DataTables-1.9.4/media/js/jquery.dataTables.min.js")"></script>
+
         <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/KoGrid.css")" />
         <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Style.css")" />
-
+        <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/DataTables-1.9.4/media/css/jquery.dataTables.css")" />
         @if(HttpContext.Current.IsDebuggingEnabled) {
             <script type="text/javascript" src="@Url.Content("~/App/durandal/amd/require.js")" data-main="@Url.Content("~/App/main")"></script>
         }
