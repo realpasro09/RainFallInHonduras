@@ -166,14 +166,30 @@ namespace Rainfall.Web.Controllers
                                                   && x.Date.Date <= SystemDateTime.Now().AddDays(daysTo).Date)
                                                        .OrderByDescending(x => x.Date);
 
-            var rainfallSummary = new RainfallSummaryModel()
+            RainfallSummaryModel rainfallSummary;
+            if (almanacDays.Any())
+            {
+                rainfallSummary = new RainfallSummaryModel()
                 {
-                    MaxTemp = almanacDays.Max(x=> x.Get24HrsTempHigh()),
-                    MinTemp = almanacDays.Min(x=> x.Get24HrsTempLow()),
-                    AvgTemp = almanacDays.Average(x=>(x.Get24HrsTempLow() + x.Get24HrsTempHigh())/2),
-                    AvgPrecipitation = almanacDays.Average(x=>x.Get24HrsPrecipitation()),
-                    TotalPrecipitation = almanacDays.Sum(x=> x.Get24HrsPrecipitation())
+                    MaxTemp = almanacDays.Max(x => x.Get24HrsTempHigh()),
+                    MinTemp = almanacDays.Min(x => x.Get24HrsTempLow()),
+                    AvgTemp = almanacDays.Average(x => (x.Get24HrsTempLow() + x.Get24HrsTempHigh()) / 2),
+                    AvgPrecipitation = almanacDays.Average(x => x.Get24HrsPrecipitation()),
+                    TotalPrecipitation = almanacDays.Sum(x => x.Get24HrsPrecipitation())
                 };
+            }
+            else
+            {
+                rainfallSummary = new RainfallSummaryModel()
+                {
+                    MaxTemp = 0,
+                    MinTemp = 0,
+                    AvgTemp = 0,
+                    AvgPrecipitation = 0,
+                    TotalPrecipitation = 0
+                };   
+            }
+            
             return Json(rainfallSummary, JsonRequestBehavior.AllowGet);
         }
     }

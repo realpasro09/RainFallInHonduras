@@ -75,6 +75,7 @@
     <Compile Include="when_getting_rainfall_data.cs" />
     <Compile Include="when_getting_rainfall_data_by_period_and_location.cs" />
     <Compile Include="when_getting_rainfall_summary.cs" />
+    <Compile Include="when_getting_rainfall_summary_no_results.cs" />
     <Compile Include="when_getting_rainfull_data_filtered_by_location.cs" />
     <Compile Include="when_instantiating_all_controllers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

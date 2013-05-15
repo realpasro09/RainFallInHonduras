@@ -41,7 +41,8 @@ define(["dataContext"], function (dc) {
             maxTemperature = ko.observable(0),
             minTemperature = ko.observable(0),
             avgTemperature = ko.observable(0),
-            avgPrecipitacion = ko.observable(0);
+            avgPrecipitacion = ko.observable(0),
+            totalPrecipitation = ko.observable(0);
 
         dc.LocationData.Get().done(function (locationdataFromServer) {
             $.each(locationdataFromServer, function (index, c) {
@@ -54,14 +55,25 @@ define(["dataContext"], function (dc) {
                 periodData.push(c);
             });
         });
-        
-        
+
+        var getRainfallDataSummary = function() {
+            dc.RainfallData.GetRainfallSummary(locationValue,periodValue).done(function(dataFromServer) {
+                maxTemperature(dataFromServer.MaxTemp);
+                minTemperature(dataFromServer.MinTemp);
+                avgTemperature(dataFromServer.AvgTemp);
+                avgPrecipitacion(dataFromServer.AvgPrecipitation);
+                totalPrecipitation(dataFromServer.TotalPrecipitation);
+            });
+        };
+        getRainfallDataSummary();
         selectedLocation.subscribe(function (val) {
             locationValue(val.CityId);
+            getRainfallDataSummary();
         });
         
         selectedPeriod.subscribe(function (val) {
             periodValue(val.PeriodId);
+            getRainfallDataSummary();
         });
         
         var gridDataTable = {
@@ -108,7 +120,8 @@ define(["dataContext"], function (dc) {
             MaxTemperature: maxTemperature,
             MinTemperature: minTemperature,
             AvgTemperature :avgTemperature,
-            AvgPrecipitation : avgPrecipitacion
+            AvgPrecipitation: avgPrecipitacion,
+            TotalPrecipitation: totalPrecipitation
         };
     }();
     return viewModel;
