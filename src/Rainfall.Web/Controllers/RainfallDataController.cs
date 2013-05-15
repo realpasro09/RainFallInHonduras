@@ -112,5 +112,69 @@ namespace Rainfall.Web.Controllers
 
             return Json(almanacDayGridSummary, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GetRainfallSummary(int locationId, int periodId)
+        {
+            var daysfrom = 0;
+            var daysTo = 0;
+
+            switch ((PeriodType)periodId)
+            {
+                case PeriodType.Today:
+                    daysfrom = 0;
+                    daysTo = 0;
+                    break;
+                case PeriodType.Yesterday:
+                    daysfrom = -1;
+                    daysTo = -1;
+                    break;
+                case PeriodType.LastWeek:
+                    daysfrom = -7;
+                    daysTo = -1;
+                    break;
+                case PeriodType.LastMonth:
+                    daysfrom = -30;
+                    daysTo = -1;
+                    break;
+                case PeriodType.LastYear:
+                    daysfrom = -365;
+                    daysTo = -1;
+                    break;
+                default:
+                    daysfrom = 0;
+                    daysTo = 0;
+                    break;
+            }
+
+            var totalRecords = locationId != 0
+                                ? _repository.Query<AlmanacDay>(
+                                              x => x.Date.Date >= SystemDateTime.Now().AddDays(daysfrom).Date
+                                                  && x.Date.Date <= SystemDateTime.Now().AddDays(daysTo).Date
+                                                  && x.City.Id == locationId).Count()
+                                : _repository.Query<AlmanacDay>(
+                                              x => x.Date.Date >= SystemDateTime.Now().AddDays(daysfrom).Date
+                                                  && x.Date.Date <= SystemDateTime.Now().AddDays(daysTo).Date).Count();
+
+            IEnumerable<AlmanacDay> almanacDays = locationId != 0
+                                          ? _repository.Query<AlmanacDay>(
+                                              x => x.Date.Date >= SystemDateTime.Now().AddDays(daysfrom).Date
+                                                  && x.Date.Date <= SystemDateTime.Now().AddDays(daysTo).Date
+                                                  && x.City.Id == locationId)
+                                                       .OrderByDescending(x => x.Date)
+                                          : _repository.Query<AlmanacDay>(
+                                              x => x.Date.Date >= SystemDateTime.Now().AddDays(daysfrom).Date
+                                                  && x.Date.Date <= SystemDateTime.Now().AddDays(daysTo).Date)
+                                                       .OrderByDescending(x => x.Date);
+
+            var rainfallSummary = new RainfallSummaryModel()
+                {
+                    MaxTemp = almanacDays.Max(x=> x.Get24HrsTempHigh()),
+                    MinTemp = almanacDays.Min(x=> x.Get24HrsTempLow()),
+                    AvgTemp = almanacDays.Average(x=>(x.Get24HrsTempLow() + x.Get24HrsTempHigh())/2),
+                    AvgPrecipitation = almanacDays.Average(x=>x.Get24HrsPrecipitation()),
+                    TotalPrecipitation = almanacDays.Sum(x=> x.Get24HrsPrecipitation())
+                };
+            return Json(rainfallSummary, JsonRequestBehavior.AllowGet);
+        }
     }
 }
