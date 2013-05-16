@@ -13,9 +13,13 @@
         
         <link rel="apple-touch-startup-image" href="~/Content/images/ios-startup-image-landscape.png" media="(orientation:landscape)" />
         <link rel="apple-touch-startup-image" href="~/Content/images/ios-startup-image-portrait.png" media="(orientation:portrait)" />
-        <link rel="apple-touch-icon" href="~/Content/images/icon.png"/>
-        
+        <link rel="apple-touch-icon" href="~/Content/images/icon.png"/>        
         @Styles.Render("~/Content/css")
+        <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/themes/base/jquery-ui.css")" />
+        <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/DataTables-1.9.4/media/css/jquery.dataTables.css")" />
+        <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/DataTables-1.9.4/media/css/jquery.dataTables_themeroller.css")" />
+        <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Style.css")" />
+        <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/DataTables-1.9.4/media/css/jquery.dataTables.css")" />
         
         <script type="text/javascript">
             if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
@@ -36,21 +40,8 @@
         
         <script type="text/javascript" src="@Url.Content("~/Scripts/DataTables-1.9.4/media/js/jquery.js")"></script>
         <script type="text/javascript" src="@Url.Content("~/Scripts/DataTables-1.9.4/media/js/jquery.dataTables.js")"></script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/DataTables-1.9.4/media/js/jquery.dataTables.min.js")"></script>
-        
+        <script type="text/javascript" src="@Url.Content("~/Scripts/DataTables-1.9.4/media/js/jquery.dataTables.min.js")"></script>        
         <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.tmpl.js")"></script>
-		<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/themes/base/jquery-ui.css")" />
-
-        <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/DataTables-1.9.4/media/css/jquery.dataTables.css")" />
-        <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/DataTables-1.9.4/media/css/jquery.dataTables_themeroller.css")" />
-        <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Style.css")" />
-        <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/DataTables-1.9.4/media/css/jquery.dataTables.css")" />
-        @if(HttpContext.Current.IsDebuggingEnabled) {
-            <script type="text/javascript" src="@Url.Content("~/App/durandal/amd/require.js")" data-main="@Url.Content("~/App/main")"></script>
-        }
-        else
-        {
-            <script type="text/javascript" src="@Url.Content("~/App/main-built.js")"></script>
-        }
+		<script type="text/javascript" src="@Url.Content("~/App/durandal/amd/require.js")" data-main="@Url.Content("~/App/main")"></script>        
     </body>
 </html>
