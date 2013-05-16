@@ -2,14 +2,11 @@
     
     return {
         RainfallData: {
-            Get: function () {
-                return server.Get("rainfalldata/get");
-            },
-            GetRainfallDataByLocation: function (locationId){
-                return server.Get("rainfalldata/getrainfalldatabylocation", {locationId : locationId});
-            },
             GetRainfallData: function (locationId, periodId) {
                 return server.Get("rainfalldata/getrainfalldata", { locationId: locationId, periodId: periodId });
+            },
+            GetRainfallSummary: function(locationId, periodId) {
+                return server.Get("rainfalldata/getrainfallsummary", {locationId :locationId, periodId: periodId});
             }
         },
         LocationData: {

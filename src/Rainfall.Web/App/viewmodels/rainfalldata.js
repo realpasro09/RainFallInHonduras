@@ -1,5 +1,24 @@
 define(["dataContext"], function (dc) {
-
+    /* The dataTable binding */
+    (function ($) {
+        ko.bindingHandlers.dataTable = {
+            init: function (element, valueAccessor) {
+                var binding = ko.utils.unwrapObservable(valueAccessor());
+                if (binding.options) {
+                    $(element).dataTable(binding.options);
+                }
+            },
+            update: function (element, valueAccessor) {
+                var binding = ko.utils.unwrapObservable(valueAccessor());
+                if (!binding.data) {
+                    binding = { data: valueAccessor() };
+                }
+                $(element).dataTable().fnClearTable();
+                $(element).dataTable().fnAddData(binding.data());
+            }
+        };
+    })(jQuery);
+    
     var viewModel = function () {
         var rainfallData = ko.observableArray([]),
             locationData = ko.observableArray([]),
@@ -11,15 +30,9 @@ define(["dataContext"], function (dc) {
             maxTemperature = ko.observable(0),
             minTemperature = ko.observable(0),
             avgTemperature = ko.observable(0),
-            avgPrecipitacion = ko.observable(0);
+            avgPrecipitacion = ko.observable(0),
+            totalPrecipitation = ko.observable(0);
         
-        $(document).ajaxStart(function () {
-            $("body").addClass("loading");
-        });
-        $(document).ajaxStop(function () {
-            $("body").removeClass("loading");
-        });
-
         dc.LocationData.Get().done(function (locationdataFromServer) {
             $.each(locationdataFromServer, function (index, c) {
                 locationData.push(c);
@@ -31,55 +44,75 @@ define(["dataContext"], function (dc) {
                 periodData.push(c);
             });
         });
+
+        var getRainfallDataSummary = function() {
+            dc.RainfallData.GetRainfallSummary(locationValue,periodValue).done(function(dataFromServer) {
+                maxTemperature(dataFromServer.MaxTemp);
+                minTemperature(dataFromServer.MinTemp);
+                avgTemperature(dataFromServer.AvgTemp.toFixed(2));
+                avgPrecipitacion(dataFromServer.AvgPrecipitation.toFixed(2));
+                totalPrecipitation(dataFromServer.TotalPrecipitation.toFixed(2));
+            });
+        };
+        
+        getRainfallDataSummary();
         
         selectedLocation.subscribe(function (val) {
             locationValue(val.CityId);
-            dc.RainfallData.GetRainfallData(locationValue, periodValue)
-                .done(function(rainfalldataFromServer) {
-                    rainfallData.removeAll();
-                    $.each(rainfalldataFromServer.AlmanacDays, function(index, c) {
-                        rainfallData.push(c);
-                    });
-                    maxTemperature(rainfalldataFromServer.MaxTemperature);
-                    minTemperature(rainfalldataFromServer.MinTemperature);
-                    avgTemperature(rainfalldataFromServer.AvgTemperature.toFixed(2));
-                    avgPrecipitacion(rainfalldataFromServer.AvgPrecipitation.toFixed(2));
-                });
-            gridViewModel.currentPageIndex(0);
+            getRainfallDataSummary();
         });
         
         selectedPeriod.subscribe(function (val) {
             periodValue(val.PeriodId);
-            dc.RainfallData.GetRainfallData(locationValue, periodValue)
-                .done(function (rainfalldataFromServer) {
-                    rainfallData.removeAll();
-                    $.each(rainfalldataFromServer.AlmanacDays, function (index, c) {
-                        rainfallData.push(c);
-                    });
-                    maxTemperature(rainfalldataFromServer.MaxTemperature);
-                    minTemperature(rainfalldataFromServer.MinTemperature);
-                    avgTemperature(rainfalldataFromServer.AvgTemperature.toFixed(2));
-                    avgPrecipitacion(rainfalldataFromServer.AvgPrecipitation.toFixed(2));
-                });
-            gridViewModel.currentPageIndex(0);
+            getRainfallDataSummary();
         });
-
-        var gridViewModel = new ko.simpleGrid.viewModel({
+        
+        var gridDataTable = {
             data: rainfallData,
-            columns: [
-                { headerText: "Date", rowText: "Date" },
-                { headerText: "City", rowText: "City" },
-                { headerText: "Precipitation", rowText: function (item) { return item.Precipitation.toFixed(2); } },
-                { headerText: "High", rowText: function (item) { return item.TempHigh; } },
-                { headerText: "Low", rowText: function (item) { return item.TempLow; } }
-            ],
-            pageSize: 10
-        });
-
+            options:
+            {
+                bFilter: false,
+                bJQueryUI: true,
+                bLengthChange: false,
+                bServerSide: true,  
+                bProcessing: false,
+                sPaginationType: "full_numbers",
+                sAjaxSource: "/RainfallData/GetRainfallData",
+                fnServerData: function(sSource, aoData, fnCallback, oSettings) {
+                    oSettings.jqXHR = $.ajax({
+                            "dataType": 'json',
+                            "type": "POST",
+                            "url": sSource,
+                            "data": aoData,
+                            "success": fnCallback
+                        }
+                    );
+                },
+                fnServerParams: function ( aoData )   
+                {  
+                    aoData.push({ name: "locationId", value: locationValue() });
+                    aoData.push({ name: "periodId", value: periodValue() });
+                },
+                aoColumns:
+                [
+                    { sTitle: 'Date', mData: 'Date', bSortable: false },
+                    { sTitle: 'City', mData: 'City', bSortable: false },
+                    { sTitle: 'High Temp', mData: 'TempHigh', bSortable: false },
+                    { sTitle: 'Low Temp', mData: 'TempLow', bSortable: false },
+                    {
+                        sTitle: 'Precipitation',
+                        mData: 'Precipitation',
+                        bSortable: false,
+                        mRender: function(data, type, full) {
+                            return data.toFixed(2);
+                        }
+                    }
+                ]
+            }
+        };
 
         return {
-            GridViewModel: gridViewModel,
-            RainfallData: rainfallData,
+            GridViewModel: gridDataTable,
             LocationData: locationData,
             PeriodData: periodData,
             SelectedLocation: selectedLocation,
@@ -87,7 +120,8 @@ define(["dataContext"], function (dc) {
             MaxTemperature: maxTemperature,
             MinTemperature: minTemperature,
             AvgTemperature :avgTemperature,
-            AvgPrecipitation : avgPrecipitacion
+            AvgPrecipitation: avgPrecipitacion,
+            TotalPrecipitation: totalPrecipitation
         };
     }();
     return viewModel;

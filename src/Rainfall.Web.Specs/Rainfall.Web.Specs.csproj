@@ -72,9 +72,9 @@
   <ItemGroup>
     <Compile Include="when_getting_location_data.cs" />
     <Compile Include="when_getting_period_data.cs" />
-    <Compile Include="when_getting_rainfall_data.cs" />
     <Compile Include="when_getting_rainfall_data_by_period_and_location.cs" />
-    <Compile Include="when_getting_rainfull_data_filtered_by_location.cs" />
+    <Compile Include="when_getting_rainfall_summary.cs" />
+    <Compile Include="when_getting_rainfall_summary_no_results.cs" />
     <Compile Include="when_instantiating_all_controllers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="when_mapping_an_almanac_day_to_a_model.cs" />
