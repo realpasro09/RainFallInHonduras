@@ -20,6 +20,7 @@ namespace Rainfall.Web.Specs
         static LocationDataController _locationController;
         static List<CityFilterLocationModel> _citiesModel;
         static JsonResult _result;
+        static List<CityFilterLocationModel> _expectedList;
 
         Establish context =
             () =>
@@ -51,11 +52,6 @@ namespace Rainfall.Web.Specs
 
         Because of = () => _result = _locationController.Get();
 
-        It should_return_location_data = () =>
-                                             {
-                                                 _result.Data.ShouldBeLike(_expectedList);
-                                             };
-
-        static List<CityFilterLocationModel> _expectedList;
+        It should_return_location_data = () => { _result.Data.ShouldBeLike(_expectedList); };
     }
 }

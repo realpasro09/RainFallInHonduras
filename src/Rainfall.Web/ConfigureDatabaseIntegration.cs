@@ -1,4 +1,5 @@
 using System;
+using System.Configuration;
 using AcklenAvenue.Data.NHibernate;
 using Autofac;
 using FluentNHibernate.Cfg.Db;
@@ -7,16 +8,16 @@ using Rainfall.Integration;
 
 namespace Rainfall.Web
 {
-    public class ConfigureDatabaseIntegration : IBootstrapperTask<Autofac.ContainerBuilder>
+    public class ConfigureDatabaseIntegration : IBootstrapperTask<ContainerBuilder>
     {
         #region IBootstrapperTask<ContainerBuilder> Members
 
-        public Action<Autofac.ContainerBuilder> Task
+        public Action<ContainerBuilder> Task
         {
             get
             {
                 MsSqlConfiguration databaseConfiguration = MsSqlConfiguration.MsSql2008.ShowSql().
-                    ConnectionString(x => x.FromConnectionStringWithKey("Rainfall"));
+                    ConnectionString(x => x.FromConnectionStringWithKey(GetConnectionStringName()));
 
                 return container =>
                            {
@@ -48,5 +49,13 @@ namespace Rainfall.Web
         }
 
         #endregion
+
+        static string GetConnectionStringName()
+        {
+            string env = ConfigurationManager.AppSettings["Environment"];
+            if (string.IsNullOrEmpty(env)) env = "Development";
+            string connectionStringName = "Rainfall_" + env;
+            return connectionStringName;
+        }
     }
 }
