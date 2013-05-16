@@ -61,12 +61,12 @@ namespace Rainfall.Web.Specs
 
                     _mockMappingEngine.Setup(x => x.Map<IEnumerable<AlmanacDay>, IEnumerable<AlmanacDayGridItemModel>>(almancDays))
                         .Returns(_almanacDayGridItemModels);
-                    _almanacDayGridSummaryModelToday = new AlmanacDayGridSummaryModel() { AlmanacDays = _almanacDayGridItemModels };
+                    _almanacDayGridSummaryModelToday = new AlmanacDayGridSummaryModel() { aaData = _almanacDayGridItemModels };
                     
 
                 };
 
-        private Because of = () => _result = _rainfallController.GetRainfallData(_locationId, (int)PeriodType.LastYear);
+        private Because of = () => _result = _rainfallController.GetRainfallData(_locationId, (int)PeriodType.LastYear,null);
 
         private It should_return_filtered_data_by_location_and_period = () => _result.Data.ShouldBeLike(_almanacDayGridSummaryModelToday);
         
