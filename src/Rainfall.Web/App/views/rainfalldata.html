@@ -1,20 +1,53 @@
 
 ﻿<section >
-    <br/>
-    <b>Temperature: </b> <br/> 
-    ﻿Min: <span data-bind="text: MinTemperature"> </span> °C
-    ﻿Max: <span data-bind="text: MaxTemperature"></span> °C
-    ﻿Avg: <span data-bind="text: AvgTemperature"></span> °C
-    ﻿<br/>
-    ﻿<b>Precipitation: </b> <br/>
-﻿    Avg: <span data-bind="text: AvgPrecipitation"> </span> mm
-    Total: <span data-bind="text: TotalPrecipitation"></span> mm 
+﻿    <table style="border: 0">
+﻿            <tr style="background-color: White">
+﻿                <td style="padding-right:10px">
+﻿                    <b>Temperature: </b>
+﻿                    <table class="tableBorder">
+﻿                        <body>
+﻿                            <tr class ="trBack">
+﻿                                <td valign="top" align="center" style="padding:10px">
+﻿                                    <span style="font-size: 25px" data-bind="text: MaxTemperature"> °C</span><br/>
+﻿                                    <span style=" font-size: 14px;color: #999999;">Max</span>
+﻿                                </td>
+﻿                                <td valign="top" align="center" style="padding:10px">
+﻿                                    <span style="font-size: 25px" data-bind="text: MinTemperature"> °C</span><br/>
+﻿                                    <span style="font-size: 14px;color: #999999;">Min</span>
+﻿                                </td>
+﻿                                <td valign="top" align="center" style="padding:10px">
+﻿                                    <span style="font-size: 25px" data-bind="text: AvgTemperature"> °C</span><br/>
+﻿                                    <span style="font-size: 14px;color: #999999;">Average</span>
+﻿                                </td>
+﻿                            </tr>
+﻿                        </body>
+﻿                    </table>
+﻿                </td>
+﻿                <td>
+﻿                    <b>Precipitation: </b>
+﻿                    <table class="tableBorder">
+﻿                        <body>
+﻿                            <tr class ="trBack">
+﻿                                <td valign="top" align="center" style="padding:10px">
+﻿                                    <span style="font-size: 25px" data-bind="text: AvgPrecipitation"> °C</span><br/>
+﻿                                    <span style="font-size: 14px;color: #999999;">Avg</span>
+﻿                                </td>
+﻿                                <td valign="top" align="center" style="padding:10px">
+﻿                                    <span style="font-size: 25px" data-bind="text: TotalPrecipitation"> °C</span><br/>
+﻿                                    <span style="font-size: 14px;color: #999999;">Total</span>
+﻿                                </td>
+﻿                            </tr>
+﻿                        </body>
+﻿                    </table>
+﻿                </td>
+﻿            </tr>
+﻿    </table>
+    
 ﻿    <br/>
-    <br/>
 ﻿    <select id="selectLocation" data-bind="options: LocationData, value: SelectedLocation, optionsText: 'Name'" ></select>
 ﻿    <select id="selectPeriod" data-bind="options: PeriodData, value: SelectedPeriod, optionsText: 'Name'" ></select>
     
-﻿    <table id="myGrid" data-bind="dataTable: GridViewModel" />
+﻿    <table id="myGrid" class="tableGrid" data-bind="dataTable: GridViewModel" />
 
 ﻿</section>
 
