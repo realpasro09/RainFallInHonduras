@@ -41,14 +41,21 @@ namespace Rainfall.Web.Specs
                         x => x.Map<IEnumerable<City>, IEnumerable<CityFilterLocationModel>>(cities))
                         .Returns(_citiesModel);
 
-                    _citiesModel.Add(new CityFilterLocationModel{CityId = 0, Name = "All"});
+                    _expectedList = new List<CityFilterLocationModel>
+                                        {
+                                            new CityFilterLocationModel(),
+                                            new CityFilterLocationModel(),
+                                            new CityFilterLocationModel {CityId = 0, Name = "All"}
+                                        };
                 };
 
         Because of = () => _result = _locationController.Get();
 
         It should_return_location_data = () =>
                                              {
-                                                 _result.Data.ShouldBeLike(_citiesModel);
+                                                 _result.Data.ShouldBeLike(_expectedList);
                                              };
+
+        static List<CityFilterLocationModel> _expectedList;
     }
 }
