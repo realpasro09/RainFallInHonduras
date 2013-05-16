@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using AcklenAvenue.Testing.Moq;
 using AutoMapper;
+using Autofac;
 using Machine.Specifications;
 using Moq;
 using Rainfall.Domain;
@@ -21,7 +22,8 @@ namespace Rainfall.Web.Specs
         static Mock<IMappingEngine> _mockMappingEngine;
         static RainfallDataController _rainfallController;
         static JsonResult _result;
-        static List<AlmanacDayGridItemModel> _almanacDayModels;
+        static AlmanacDayGridSummaryModel _almanacDayGridSummaryModel;
+        private static List<AlmanacDayGridItemModel> _almanacDayGridItemModels; 
 
         Establish context =
             () =>
@@ -34,22 +36,26 @@ namespace Rainfall.Web.Specs
                     IQueryable<AlmanacDay> almanacDays =
                         new List<AlmanacDay> {new AlmanacDay(), new AlmanacDay()}.AsQueryable();
                     DateTime dateTime = DateTime.Now;
-                    SystemDateTime.Now = () => dateTime;                        
+                    SystemDateTime.Now = () => dateTime;
+
                     _mockRepository.Setup(x => x.Query(ThatHas.AnExpressionFor<AlmanacDay>()
                         .ThatMatches(new AlmanacDay(){Date = dateTime.AddDays(-30)})
                         .ThatDoesNotMatch(new AlmanacDay(){Date = dateTime.AddDays(-31)},new AlmanacDay(){Date = dateTime.AddDays(-32)})
                         .Build()))
                         .Returns(almanacDays);
-
-                    _almanacDayModels = new List<AlmanacDayGridItemModel>
-                                            {new AlmanacDayGridItemModel(), new AlmanacDayGridItemModel()};
+                   
+                    _almanacDayGridItemModels = new List<AlmanacDayGridItemModel>()
+                                                {new AlmanacDayGridItemModel(),new AlmanacDayGridItemModel()};
                     _mockMappingEngine.Setup(
                         x => x.Map<IEnumerable<AlmanacDay>, IEnumerable<AlmanacDayGridItemModel>>(almanacDays))
-                        .Returns(_almanacDayModels);
+                        .Returns(_almanacDayGridItemModels);
+
+                    _almanacDayGridSummaryModel = new AlmanacDayGridSummaryModel() { AlmanacDays = _almanacDayGridItemModels };
                 };
 
         Because of = () => _result = _rainfallController.Get();
 
-        It should_return_rainfall_data_over_the_past_30_day = () => _result.Data.ShouldBeLike(_almanacDayModels);
+        It should_return_rainfall_data_over_the_past_30_day = () => _result.Data.ShouldBeLike(_almanacDayGridSummaryModel);
+        
     }
 }
