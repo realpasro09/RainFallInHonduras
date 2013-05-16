@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
-using System.Web.UI.WebControls;
 using Autofac;
 using Autofac.Integration.Mvc;
 
-namespace Rainfall.Web
+namespace Rainfall.Web.Infrastructure
 {
     public class Bootstrapper
     {

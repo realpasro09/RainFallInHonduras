@@ -1,6 +1,6 @@
 using System;
 
-namespace Rainfall.Web
+namespace Rainfall.Web.Infrastructure
 {
     public interface IBootstrapperTask<T>
     {

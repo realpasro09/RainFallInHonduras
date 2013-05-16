@@ -133,8 +133,8 @@
   <ItemGroup>
     <Compile Include="App_Start\DurandalBundleConfig.cs" />
     <Compile Include="App_Start\DurandalConfig.cs" />
-    <Compile Include="Bootstrapper.cs" />
-    <Compile Include="ConfigureAutomapper.cs" />
+    <Compile Include="Infrastructure\Bootstrapper.cs" />
+    <Compile Include="Infrastructure\ConfigureAutomapper.cs" />
     <Compile Include="Controllers\LocationDataController.cs" />
     <Compile Include="Controllers\PeriodDataController.cs" />
     <Compile Include="Controllers\RainfallDataController.cs" />
@@ -145,14 +145,14 @@
     <Compile Include="Models\PeriodType.cs" />
     <Compile Include="Models\RainfallSummaryModel.cs" />
     <Compile Include="Models\TableParameter.cs" />
-    <Compile Include="RegisterInjectedDependencies.cs" />
+    <Compile Include="Infrastructure\RegisterInjectedDependencies.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="ConfigureDatabaseIntegration.cs" />
+    <Compile Include="Infrastructure\ConfigureDatabaseIntegration.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="ConfigureAspNetMvc.cs" />
-    <Compile Include="IBootstrapperTask.cs" />
+    <Compile Include="Infrastructure\ConfigureAspNetMvc.cs" />
+    <Compile Include="Infrastructure\IBootstrapperTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

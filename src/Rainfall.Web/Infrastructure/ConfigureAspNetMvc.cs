@@ -4,7 +4,7 @@ using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
 
-namespace Rainfall.Web
+namespace Rainfall.Web.Infrastructure
 {
     public class ConfigureAspNetMvc : IBootstrapperTask<ContainerBuilder>
     {
