@@ -16,8 +16,19 @@ namespace Rainfall.Web
         {
             get
             {
-                MsSqlConfiguration databaseConfiguration = MsSqlConfiguration.MsSql2008.ShowSql().
-                    ConnectionString(x => x.FromConnectionStringWithKey(GetConnectionStringName()));
+                string connectionStringName = GetConnectionStringName();
+                MsSqlConfiguration databaseConfiguration;
+                try
+                {
+                    databaseConfiguration = MsSqlConfiguration.MsSql2008.ShowSql().
+                    ConnectionString(x => x.FromConnectionStringWithKey(connectionStringName));
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(
+                        string.Format("The connection string name '{0}' does not exist in the local.config file.",
+                                      connectionStringName), ex);
+                }
 
                 return container =>
                            {
