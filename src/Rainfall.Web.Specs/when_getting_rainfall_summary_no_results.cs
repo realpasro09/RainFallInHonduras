@@ -21,7 +21,6 @@ namespace Rainfall.Web.Specs
         static Mock<IRepository> _mockRepository;
         static Mock<IMappingEngine> _mockMappingEngine;
         static RainfallDataController _rainfallController;
-        static RainfallSummaryModel _rainfallSummary;
         static int _location;
         static RainfallSummaryModel _expectedRainfallSummaryModel;
 

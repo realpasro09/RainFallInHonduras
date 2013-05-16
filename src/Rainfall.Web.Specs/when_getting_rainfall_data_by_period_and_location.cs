@@ -22,9 +22,10 @@ namespace Rainfall.Web.Specs
         static Mock<IRepository> _mockRepository;
         static Mock<IMappingEngine> _mockMappingEngine;
         static RainfallDataController _rainfallController;
-        static AlmanacDayGridSummaryModel _almanacDayGridSummaryModelToday;
+        static AlmanacDayGridSummaryModel _expectecAlmanacDayGridSummaryModel;
         static List<AlmanacDayGridItemModel> _almanacDayGridItemModels;
         static int _locationId;
+        static TableParameter _tableParams;
 
         private Establish context = 
             () =>
@@ -35,15 +36,16 @@ namespace Rainfall.Web.Specs
                                                                      _mockMappingEngine.Object);
 
                     _locationId = 2;
-                    var wrongLocation = new City() {Id = 1};
+                    var wrongLocation = new City() { Id = 1 };
                     var correctLocation = new City() { Id = 2 };
 
+                    _tableParams = new TableParameter() { sEcho = null, iDisplayStart = 0, iDisplayLength = 2 };
                     DateTime dateTime = DateTime.Now;
                     SystemDateTime.Now = () => dateTime;
 
-                    IQueryable<AlmanacDay> almancDays = 
-                        new List<AlmanacDay>{new AlmanacDay(), new AlmanacDay()}.AsQueryable();
-                    
+                    IQueryable<AlmanacDay> almancDays =
+                        new List<AlmanacDay> { new AlmanacDay(), new AlmanacDay() }.AsQueryable();
+
                     _almanacDayGridItemModels = new List<AlmanacDayGridItemModel>
                         {
                             new AlmanacDayGridItemModel(),
@@ -61,14 +63,19 @@ namespace Rainfall.Web.Specs
 
                     _mockMappingEngine.Setup(x => x.Map<IEnumerable<AlmanacDay>, IEnumerable<AlmanacDayGridItemModel>>(almancDays))
                         .Returns(_almanacDayGridItemModels);
-                    _almanacDayGridSummaryModelToday = new AlmanacDayGridSummaryModel() { aaData = _almanacDayGridItemModels };
+                    _expectecAlmanacDayGridSummaryModel = new AlmanacDayGridSummaryModel()
+                    {
+                        iTotalDisplayRecords = _almanacDayGridItemModels.Count(),
+                        iTotalRecords = _almanacDayGridItemModels.Count(),
+                        aaData = _almanacDayGridItemModels
+                    };
                     
 
                 };
 
-        private Because of = () => _result = _rainfallController.GetRainfallData(_locationId, (int)PeriodType.LastYear,null);
+        private Because of = () => _result = _rainfallController.GetRainfallData(_locationId, (int)PeriodType.LastYear,_tableParams);
 
-        private It should_return_filtered_data_by_location_and_period = () => _result.Data.ShouldBeLike(_almanacDayGridSummaryModelToday);
+        private It should_return_filtered_data_by_location_and_period = () => _result.Data.ShouldBeLike(_expectecAlmanacDayGridSummaryModel);
         
     }
 }
