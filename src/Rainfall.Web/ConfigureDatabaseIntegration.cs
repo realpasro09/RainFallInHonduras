@@ -63,7 +63,7 @@ namespace Rainfall.Web
 
         static string GetConnectionStringName()
         {
-            string env = ConfigurationManager.AppSettings["Environment"];
+            string env = ConfigurationManager.AppSettings["Env"];
             if (string.IsNullOrEmpty(env)) env = "Development";
             string connectionStringName = "Rainfall_" + env;
             return connectionStringName;
