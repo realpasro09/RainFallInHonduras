@@ -40,10 +40,15 @@ namespace Rainfall.Web.Specs
                     _mockMappingEngine.Setup(
                         x => x.Map<IEnumerable<City>, IEnumerable<CityFilterLocationModel>>(cities))
                         .Returns(_citiesModel);
+
+                    _citiesModel.Add(new CityFilterLocationModel{CityId = 0, Name = "All"});
                 };
 
         Because of = () => _result = _locationController.Get();
 
-        It should_return_location_data = () => _result.Data.ShouldBeLike(_citiesModel);
+        It should_return_location_data = () =>
+                                             {
+                                                 _result.Data.ShouldBeLike(_citiesModel);
+                                             };
     }
 }

@@ -19,19 +19,17 @@ namespace Rainfall.Web.Controllers
             _repository = repository;
             _mappingEngine = mappingEngine;
         }
-        //
+        
         // GET: /LocationData/
-
         public JsonResult Get()
         {
             var locations = _repository.Query<City>(x => true).OrderBy(x => x.Name);
             var mappedLocations =
-                _mappingEngine.Map<IEnumerable<City>, IEnumerable<CityFilterLocationModel>>(locations);
+                _mappingEngine.Map<IEnumerable<City>, IEnumerable<CityFilterLocationModel>>(locations).ToList();
 
-            ((List<CityFilterLocationModel>)mappedLocations).Add(new CityFilterLocationModel() { CityId = 0, Name = "All" });
-            mappedLocations = mappedLocations.OrderBy(x => x.Name);
-            return Json(mappedLocations, JsonRequestBehavior.AllowGet);
+            mappedLocations.Add(new CityFilterLocationModel() {CityId = 0, Name = "All"});
+            var sortedLocations = mappedLocations.OrderBy(x => x.Name);
+            return Json(sortedLocations, JsonRequestBehavior.AllowGet);
         }
-
     }
 }
