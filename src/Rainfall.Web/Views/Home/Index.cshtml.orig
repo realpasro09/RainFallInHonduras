@@ -39,8 +39,8 @@
         <script type="text/javascript" src="@Url.Content("~/Scripts/DataTables-1.9.4/media/js/jquery.dataTables.min.js")"></script>
         
         <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.tmpl.js")"></script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/knockout.simpleGrid.js")"></script>
 <<<<<<< HEAD
+        <script type="text/javascript" src="@Url.Content("~/Scripts/knockout.simpleGrid.js")"></script>
         
         <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/themes/base/jquery-ui.css")" />
         <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/themes/base/jquery.ui.all.css")" />
@@ -52,25 +52,14 @@
         <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/themes/base/jquery.ui.datepicker.css")" />
         <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/themes/base/jquery.ui.dialog.css")" />
         <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/themes/base/jquery.ui.theme.css")" />
+=======
+		<link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/themes/base/jquery-ui.css")" />
+>>>>>>> removing unecessary references
 
         <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/DataTables-1.9.4/media/css/jquery.dataTables.css")" />
         <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/DataTables-1.9.4/media/css/jquery.dataTables_themeroller.css")" />
         <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Style.css")" />
         <script type="text/javascript" src="@Url.Content("~/App/durandal/amd/require.js")" data-main="@Url.Content("~/App/main")"></script>
         
-=======
-        <script type="text/javascript" src="@Url.Content("~/Scripts/DataTables-1.9.4/media/js/jquery.dataTables.min.js")"></script>
-
-        <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/KoGrid.css")" />
-        <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/Style.css")" />
-        <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/DataTables-1.9.4/media/css/jquery.dataTables.css")" />
-        @if(HttpContext.Current.IsDebuggingEnabled) {
-            <script type="text/javascript" src="@Url.Content("~/App/durandal/amd/require.js")" data-main="@Url.Content("~/App/main")"></script>
-        }
-        else
-        {
-            <script type="text/javascript" src="@Url.Content("~/App/main-built.js")"></script>
-        }
->>>>>>> Side Server paging
     </body>
 </html>
