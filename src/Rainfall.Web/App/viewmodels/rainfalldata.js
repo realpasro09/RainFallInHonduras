@@ -1,30 +1,19 @@
 define(["dataContext"], function (dc) {
-
-
     /* The dataTable binding */
     (function ($) {
         ko.bindingHandlers.dataTable = {
             init: function (element, valueAccessor) {
                 var binding = ko.utils.unwrapObservable(valueAccessor());
-
-                // If the binding is an object with an options field,
-                // initialise the dataTable with those options. 
                 if (binding.options) {
                     $(element).dataTable(binding.options);
                 }
             },
             update: function (element, valueAccessor) {
                 var binding = ko.utils.unwrapObservable(valueAccessor());
-
-                // If the binding isn't an object, turn it into one. 
                 if (!binding.data) {
                     binding = { data: valueAccessor() };
                 }
-
-                // Clear table
                 $(element).dataTable().fnClearTable();
-
-                // Rebuild table from data source specified in binding
                 $(element).dataTable().fnAddData(binding.data());
             }
         };
@@ -43,6 +32,7 @@ define(["dataContext"], function (dc) {
             avgTemperature = ko.observable(0),
             avgPrecipitacion = ko.observable(0),
             totalPrecipitation = ko.observable(0);
+        
         dc.LocationData.Get().done(function (locationdataFromServer) {
             $.each(locationdataFromServer, function (index, c) {
                 locationData.push(c);
@@ -59,12 +49,14 @@ define(["dataContext"], function (dc) {
             dc.RainfallData.GetRainfallSummary(locationValue,periodValue).done(function(dataFromServer) {
                 maxTemperature(dataFromServer.MaxTemp);
                 minTemperature(dataFromServer.MinTemp);
-                avgTemperature(dataFromServer.AvgTemp);
-                avgPrecipitacion(dataFromServer.AvgPrecipitation);
-                totalPrecipitation(dataFromServer.TotalPrecipitation);
+                avgTemperature(dataFromServer.AvgTemp.toFixed(2));
+                avgPrecipitacion(dataFromServer.AvgPrecipitation.toFixed(2));
+                totalPrecipitation(dataFromServer.TotalPrecipitation.toFixed(2));
             });
         };
+        
         getRainfallDataSummary();
+        
         selectedLocation.subscribe(function (val) {
             locationValue(val.CityId);
             getRainfallDataSummary();
@@ -79,8 +71,11 @@ define(["dataContext"], function (dc) {
             data: rainfallData,
             options:
             {
+                bFilter: false,
+                bJQueryUI: true,
+                bLengthChange: false,
                 bServerSide: true,  
-                bProcessing: true,
+                bProcessing: false,
                 sPaginationType: "full_numbers",
                 sAjaxSource: "/RainfallData/GetRainfallData",
                 fnServerData: function(sSource, aoData, fnCallback, oSettings) {
@@ -100,18 +95,24 @@ define(["dataContext"], function (dc) {
                 },
                 aoColumns:
                 [
-                    { sTitle: 'Date', mData: 'Date' },
-                    { sTitle: 'City', mData: 'City' },
-                    { sTitle: 'High Temp', mData: 'TempHigh' },
-                    { sTitle: 'Low Temp', mData: 'TempLow' },
-                    { sTitle: 'Precipitation', mData: 'Precipitation' }
+                    { sTitle: 'Date', mData: 'Date', bSortable: false },
+                    { sTitle: 'City', mData: 'City', bSortable: false },
+                    { sTitle: 'High Temp', mData: 'TempHigh', bSortable: false },
+                    { sTitle: 'Low Temp', mData: 'TempLow', bSortable: false },
+                    {
+                        sTitle: 'Precipitation',
+                        mData: 'Precipitation',
+                        bSortable: false,
+                        mRender: function(data, type, full) {
+                            return data.toFixed(2);
+                        }
+                    }
                 ]
             }
         };
 
         return {
             GridViewModel: gridDataTable,
-            RainfallData: rainfallData,
             LocationData: locationData,
             PeriodData: periodData,
             SelectedLocation: selectedLocation,

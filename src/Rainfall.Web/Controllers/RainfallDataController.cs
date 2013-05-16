@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
 using Rainfall.Domain;
@@ -22,34 +20,10 @@ namespace Rainfall.Web.Controllers
             _mappingEngine = mappingEngine;
         }
 
-        public JsonResult Get()
-        {
-            var almanacDays = 
-                _repository.Query<AlmanacDay>(x=> x.Date >= SystemDateTime.Now().AddDays(-30)).OrderByDescending(x=>x.Date);
-
-            var mappedAlmanacDays =
-                _mappingEngine.Map<IEnumerable<AlmanacDay>, IEnumerable<AlmanacDayGridItemModel>>(almanacDays);
-
-            var almanacDayGridSummary = new AlmanacDayGridSummaryModel {aaData = mappedAlmanacDays};
-
-            return Json(almanacDayGridSummary, JsonRequestBehavior.AllowGet);
-        }
-
-        public JsonResult GetRainfallDataByLocation(int locationId)
-        {
-            var almanacDays = _repository.Query<AlmanacDay>(x => x.City.Id == locationId);
-            var mappedAlmanacDays =
-                _mappingEngine.Map<IEnumerable<AlmanacDay>, IEnumerable<AlmanacDayGridItemModel>>(almanacDays);
-
-            var almanacDayGridSummary = new AlmanacDayGridSummaryModel { aaData = mappedAlmanacDays };
-
-            return Json(almanacDayGridSummary, JsonRequestBehavior.AllowGet);
-        }
-
         public JsonResult GetRainfallData(int locationId, int periodId, TableParameter param)
         {
-            var daysfrom = 0;
-            var daysTo = 0;
+            int daysfrom;
+            int daysTo;
 
             switch ((PeriodType)periodId)
             {
@@ -115,8 +89,8 @@ namespace Rainfall.Web.Controllers
 
         public JsonResult GetRainfallSummary(int locationId, int periodId)
         {
-            var daysfrom = 0;
-            var daysTo = 0;
+            int daysfrom;
+            int daysTo;
 
             switch ((PeriodType)periodId)
             {
@@ -145,15 +119,6 @@ namespace Rainfall.Web.Controllers
                     daysTo = 0;
                     break;
             }
-
-            var totalRecords = locationId != 0
-                                ? _repository.Query<AlmanacDay>(
-                                              x => x.Date.Date >= SystemDateTime.Now().AddDays(daysfrom).Date
-                                                  && x.Date.Date <= SystemDateTime.Now().AddDays(daysTo).Date
-                                                  && x.City.Id == locationId).Count()
-                                : _repository.Query<AlmanacDay>(
-                                              x => x.Date.Date >= SystemDateTime.Now().AddDays(daysfrom).Date
-                                                  && x.Date.Date <= SystemDateTime.Now().AddDays(daysTo).Date).Count();
 
             IEnumerable<AlmanacDay> almanacDays = locationId != 0
                                           ? _repository.Query<AlmanacDay>(

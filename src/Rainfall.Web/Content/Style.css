@@ -8,26 +8,17 @@ body { font-family: arial; font-size: 14px; }
 .ko-grid-pageLinks a.selected { background-color: Black; color: White; }
 
 li { list-style-type: disc; margin-left: 20px; }
-.modal {
-    display:    none;
-    position:   fixed;
-    z-index:    1000;
-    top:        0;
-    left:       0;
-    height:     100%;
-    width:      100%;
-    background: rgba( 255, 255, 255, .8 ) 
-                url('../Content/images/waiting.gif') 
-                50% 50% 
-                no-repeat;
+
+.tableBorder {
+    border: 1px solid #000;
 }
 
-body.loading {
-    overflow: hidden;   
+.tableGrid {
+    width: 500px;
 }
 
-body.loading .modal {
-    display: block;
+.trBack {
+    background-color: #eee;
 }
 
 table {
