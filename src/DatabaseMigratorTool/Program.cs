@@ -16,9 +16,17 @@ namespace DatabaseMigratorTool
 
         static void Main(string[] args)
         {
-            _connectionStringSettings = ConfigurationManager.ConnectionStrings["Rainfall"].ConnectionString;
+            _connectionStringSettings = ConfigurationManager.ConnectionStrings[GetConnectionStringName()].ConnectionString;
             DataBaseMigrationRunner.MigrateUp(_connectionStringSettings);
             Thread.Sleep(2000);
+        }
+
+        static string GetConnectionStringName()
+        {
+            string env = ConfigurationManager.AppSettings["Env"];
+            if (string.IsNullOrEmpty(env)) env = "Development";
+            string connectionStringName = "Rainfall_" + env;
+            return connectionStringName;
         }
     }
 }
