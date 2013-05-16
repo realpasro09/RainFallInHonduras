@@ -11,8 +11,6 @@ namespace Rainfall.Web.Specs
     {
         static JsonResult _result;
         static PeriodDataController _periodController;
-        static IEnumerable<PeriodFilterModel> _expectedPeriodModel;
-        static PeriodFilterModel _originalPeriod;
 
         private Establish context =
             () =>
