@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Autofac;
 using Machine.Specifications;
+using Rainfall.Web.Infrastructure;
 
 namespace Rainfall.Web.Specs
 {

@@ -133,8 +133,8 @@
   <ItemGroup>
     <Compile Include="App_Start\DurandalBundleConfig.cs" />
     <Compile Include="App_Start\DurandalConfig.cs" />
-    <Compile Include="Bootstrapper.cs" />
-    <Compile Include="ConfigureAutomapper.cs" />
+    <Compile Include="Infrastructure\Bootstrapper.cs" />
+    <Compile Include="Infrastructure\ConfigureAutomapper.cs" />
     <Compile Include="Controllers\LocationDataController.cs" />
     <Compile Include="Controllers\PeriodDataController.cs" />
     <Compile Include="Controllers\RainfallDataController.cs" />
@@ -145,14 +145,14 @@
     <Compile Include="Models\PeriodType.cs" />
     <Compile Include="Models\RainfallSummaryModel.cs" />
     <Compile Include="Models\TableParameter.cs" />
-    <Compile Include="RegisterInjectedDependencies.cs" />
+    <Compile Include="Infrastructure\RegisterInjectedDependencies.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="ConfigureDatabaseIntegration.cs" />
+    <Compile Include="Infrastructure\ConfigureDatabaseIntegration.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="ConfigureAspNetMvc.cs" />
-    <Compile Include="IBootstrapperTask.cs" />
+    <Compile Include="Infrastructure\ConfigureAspNetMvc.cs" />
+    <Compile Include="Infrastructure\IBootstrapperTask.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -271,10 +271,6 @@
     <Content Include="Content\DataTables-1.9.4\media\images\sort_desc.png" />
     <Content Include="Content\DataTables-1.9.4\media\images\sort_desc_disabled.png" />
     <Content Include="Content\durandal.css" />
-    <Content Include="Content\font-awesome-ie7.min.css" />
-    <Content Include="Content\font-awesome.css" />
-    <Content Include="Content\font-awesome.min.css" />
-    <Content Include="Content\font\fontawesome-webfont.svg" />
     <Content Include="Content\ie10mobile.css" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
@@ -462,10 +458,6 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Content\font\fontawesome-webfont.woff" />
-    <Content Include="Content\font\fontawesome-webfont.ttf" />
-    <Content Include="Content\font\fontawesome-webfont.eot" />
-    <Content Include="Content\font\FontAwesome.otf" />
     <Content Include="local.config">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

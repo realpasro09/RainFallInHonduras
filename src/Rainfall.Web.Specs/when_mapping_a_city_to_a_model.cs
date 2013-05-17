@@ -3,6 +3,7 @@ using Autofac;
 using FizzWare.NBuilder;
 using Machine.Specifications;
 using Rainfall.Domain.Entities;
+using Rainfall.Web.Infrastructure;
 using Rainfall.Web.Models;
 
 namespace Rainfall.Web.Specs

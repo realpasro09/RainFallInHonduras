@@ -20,8 +20,7 @@ namespace Rainfall.Web {
           .Include("~/Content/ie10mobile.css")
           .Include("~/Content/bootstrap.min.css")
           .Include("~/Content/bootstrap-responsive.min.css")
-          .Include("~/Content/font-awesome.min.css")
-		  .Include("~/Content/durandal.css")
+          .Include("~/Content/durandal.css")
           .Include("~/Content/app.css")
         );
     }

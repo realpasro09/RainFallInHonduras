@@ -6,7 +6,7 @@ using FluentNHibernate.Cfg.Db;
 using NHibernate;
 using Rainfall.Integration;
 
-namespace Rainfall.Web
+namespace Rainfall.Web.Infrastructure
 {
     public class ConfigureDatabaseIntegration : IBootstrapperTask<ContainerBuilder>
     {

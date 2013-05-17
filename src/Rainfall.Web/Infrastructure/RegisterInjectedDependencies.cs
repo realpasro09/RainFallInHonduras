@@ -2,9 +2,8 @@ using System;
 using Autofac;
 using Rainfall.Domain.Services;
 using Rainfall.Integration;
-using Rainfall.Web.Models;
 
-namespace Rainfall.Web
+namespace Rainfall.Web.Infrastructure
 {
     public class RegisterInjectedDependencies : IBootstrapperTask<ContainerBuilder>
     {

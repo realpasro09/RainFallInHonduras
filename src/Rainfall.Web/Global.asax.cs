@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
+using Rainfall.Web.Infrastructure;
 
 namespace Rainfall.Web
 {
