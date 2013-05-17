@@ -462,6 +462,7 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Scripts\bootstrap-confirm.js" />
     <Content Include="Scripts\DataTables-1.9.4\docs\media\js\doc.js" />
     <Content Include="Scripts\DataTables-1.9.4\docs\media\js\jquery.js" />
     <Content Include="Scripts\DataTables-1.9.4\docs\media\js\shBrushJScript.js" />

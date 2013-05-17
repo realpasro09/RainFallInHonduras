@@ -32,7 +32,7 @@ define(["dataContext"], function (dc) {
             avgTemperature = ko.observable(0),
             avgPrecipitacion = ko.observable(0),
             totalPrecipitation = ko.observable(0);
-        
+
         dc.LocationData.Get().done(function (locationdataFromServer) {
             $.each(locationdataFromServer, function (index, c) {
                 locationData.push(c);
@@ -45,8 +45,8 @@ define(["dataContext"], function (dc) {
             });
         });
 
-        var getRainfallDataSummary = function() {
-            dc.RainfallData.GetRainfallSummary(locationValue,periodValue).done(function(dataFromServer) {
+        var getRainfallDataSummary = function () {
+            dc.RainfallData.GetRainfallSummary(locationValue, periodValue).done(function (dataFromServer) {
                 maxTemperature(dataFromServer.MaxTemp);
                 minTemperature(dataFromServer.MinTemp);
                 avgTemperature(dataFromServer.AvgTemp.toFixed(2));
@@ -54,56 +54,58 @@ define(["dataContext"], function (dc) {
                 totalPrecipitation(dataFromServer.TotalPrecipitation.toFixed(2));
             });
         };
-        
+
         getRainfallDataSummary();
-        
+
         selectedLocation.subscribe(function (val) {
             locationValue(val.CityId);
             getRainfallDataSummary();
         });
-        
+
         selectedPeriod.subscribe(function (val) {
             periodValue(val.PeriodId);
             getRainfallDataSummary();
         });
-        
+
         var gridDataTable = {
             data: rainfallData,
             options:
             {
                 bFilter: false,
-                bJQueryUI: true,
+                bInfo: false,
+                //bJQueryUI: true,
                 bLengthChange: false,
-                bServerSide: true,  
+                bServerSide: true,
                 bProcessing: false,
                 sPaginationType: "full_numbers",
                 sAjaxSource: "/RainfallData/GetRainfallData",
-                fnServerData: function(sSource, aoData, fnCallback, oSettings) {
+                fnServerData: function (sSource, aoData, fnCallback, oSettings) {
                     oSettings.jqXHR = $.ajax({
-                            "dataType": 'json',
-                            "type": "POST",
-                            "url": sSource,
-                            "data": aoData,
-                            "success": fnCallback
-                        }
+                        "dataType": 'json',
+                        "type": "POST",
+                        "url": sSource,
+                        "data": aoData,
+                        "success": fnCallback
+                    }
                     );
                 },
-                fnServerParams: function ( aoData )   
-                {  
+                fnServerParams: function (aoData) {
                     aoData.push({ name: "locationId", value: locationValue() });
                     aoData.push({ name: "periodId", value: periodValue() });
                 },
                 aoColumns:
                 [
-                    { sTitle: 'Date', mData: 'Date', bSortable: false },
-                    { sTitle: 'City', mData: 'City', bSortable: false },
-                    { sTitle: 'High Temp', mData: 'TempHigh', bSortable: false },
-                    { sTitle: 'Low Temp', mData: 'TempLow', bSortable: false },
+                    { sTitle: 'Date', mData: 'Date', bSortable: false, sWidth: 60 },
+                    { sTitle: 'City', mData: 'City', bSortable: false, sWidth: 120 },
+                    { sTitle: 'High', mData: 'TempHigh', bSortable: false, sWidth: 50, sClass: "centeredClass" },
+                    { sTitle: 'Low', mData: 'TempLow', bSortable: false, sWidth: 50, sClass: "centeredClass" },
                     {
                         sTitle: 'Precipitation',
                         mData: 'Precipitation',
                         bSortable: false,
-                        mRender: function(data, type, full) {
+                        sWidth: 50,
+                        sClass: "centeredClass",
+                        mRender: function (data, type, full) {
                             return data.toFixed(2);
                         }
                     }
@@ -119,7 +121,7 @@ define(["dataContext"], function (dc) {
             SelectedPeriod: selectedPeriod,
             MaxTemperature: maxTemperature,
             MinTemperature: minTemperature,
-            AvgTemperature :avgTemperature,
+            AvgTemperature: avgTemperature,
             AvgPrecipitation: avgPrecipitacion,
             TotalPrecipitation: totalPrecipitation
         };

@@ -9,12 +9,16 @@ body { font-family: arial; font-size: 14px; }
 
 li { list-style-type: disc; margin-left: 20px; }
 
-.tableBorder {
-    border: 1px solid #000;
+.span2Custom {
+  width: 100px;
 }
 
-.tableGrid {
-    width: 500px;
+.selecSize {
+  width: 120px;
+}
+
+.centerText {
+    text-align: center;
 }
 
 .trBack {
@@ -33,3 +37,21 @@ tbody tr {
 tbody tr:nth-child(even) {
     background-color: #ddd;
 }
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    font-size: 0;
+    clear: both;
+    visibility: hidden;
+}
+.clearfix:before {
+    content: ".";
+    display: block;
+    height: 0;
+    font-size: 0;
+    clear: both;
+    visibility: hidden;
+}
+.clearfix {display: inline-block;}

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Bootstrap.ConfirmModal</id>
+    <version>1.0.2</version>
+    <title>extension of twitter bootstrap, confirm modal</title>
+    <authors>wanw</authors>
+    <owners>wanw</owners>
+    <projectUrl>http://mvcdiary.com/projects/home/bootstrap/confirm-modal</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>There is a situation that we need user to confirm before they proceed their action. You don’t want to accidently delete very important information. So I come up the idea to extend the bootstrap modal popup to create a confirm modal before calling the function to delete some stuff.</description>
+    <summary>extension of twitter bootstrap, confirm modal</summary>
+    <releaseNotes />
+    <copyright>wanw</copyright>
+    <language />
+    <tags>bootstrap, jquery extension, twitter boostrap</tags>
+    <dependencies>
+      <dependency id="Twitter.Bootstrap" version="2.0.1" />
+    </dependencies>
+    <references />
+  </metadata>
+</package>
