@@ -21,6 +21,10 @@ li { list-style-type: disc; margin-left: 20px; }
     text-align: center;
 }
 
+.centeredClass {
+    text-align: center;
+}
+
 .trBack {
     background-color: #eee;
 }

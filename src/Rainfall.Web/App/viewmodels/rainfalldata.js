@@ -104,7 +104,7 @@ define(["dataContext"], function (dc) {
                         mData: 'Precipitation',
                         bSortable: false,
                         sWidth: 50,
-                        sClass: "centeredClass",
+                        sClass: "   ",
                         mRender: function (data, type, full) {
                             return data.toFixed(2);
                         }

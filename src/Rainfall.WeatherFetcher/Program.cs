@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -19,7 +20,7 @@ namespace Rainfall.WeatherFetcher
     {
         static void Main(string[] args)
         {
-            MsSqlConfiguration databaseConfiguration = MsSqlConfiguration.MsSql2008.ShowSql().ConnectionString(x => x.FromConnectionStringWithKey("Rainfall"));
+            MsSqlConfiguration databaseConfiguration = MsSqlConfiguration.MsSql2008.ShowSql().ConnectionString(x => x.FromConnectionStringWithKey(GetConnectionStringName()));
 
             ISessionFactory sessionFactory = new SessionFactoryBuilder(new MappingScheme(), databaseConfiguration).Build();
 
@@ -32,6 +33,14 @@ namespace Rainfall.WeatherFetcher
 
             session.Close();
             sessionFactory.Close();
+        }
+
+        static string GetConnectionStringName()
+        {
+            string env = ConfigurationManager.AppSettings["Env"];
+            if (string.IsNullOrEmpty(env)) env = "Development";
+            string connectionStringName = "Rainfall_" + env;
+            return connectionStringName;
         }
     }
 }
